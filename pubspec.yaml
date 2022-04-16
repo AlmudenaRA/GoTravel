@@ -50,6 +50,15 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
 
+  #Cambiar icono app
+  flutter_launcher_icons: ^0.9.2
+
+flutter_icons:
+  android: 'launcher_icon'
+  ios: true
+  image_path: 'assets/iconApp/icono.png'
+  adaptive_icon_background: 'assets/iconApp/icono.png'
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -65,6 +74,8 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/iconApp/
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

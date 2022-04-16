@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gotravel/page/splash_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:gotravel/constants.dart';
+import 'package:gotravel/pages/login_page.dart';
+import 'package:gotravel/pages/sing_up.dart';
+import 'package:gotravel/pages/splash_screen.dart';
 import 'package:gotravel/theme/my_colors.dart';
 
 void main() {
@@ -12,14 +16,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //Forzar la pantalla en vertical
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
     return MaterialApp(
       title: 'GoTravel',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        backgroundColor: MyColors.background,
+        scaffoldBackgroundColor: MyColors.background,
+        primaryColor: MyColors.background,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const SplashScreen(),
+      initialRoute: Constants.routesSplash,
+      routes: {
+        Constants.routesSplash: (_) => const SplashScreen(),
+        Constants.routesLogin: (_) => const LoginPage(),
+        Constants.routesSingUp: (_) => const SingUp(),
+      },
     );
   }
 }

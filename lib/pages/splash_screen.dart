@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gotravel/page/home_page.dart';
+import 'package:gotravel/pages/login_page.dart';
 import 'package:gotravel/theme/my_colors.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,9 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const MyHomePage(
-            title: "",
-          ),
+          builder: (context) => const LoginPage(),
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gotravel/components/text_field_container.dart';
-import 'package:gotravel/theme/my_colors.dart';
+import 'package:gotravel/src/components/text_field_container.dart';
+import 'package:gotravel/src/theme/my_colors.dart';
 
 class RoundedInputField extends StatelessWidget {
   final String hintText;

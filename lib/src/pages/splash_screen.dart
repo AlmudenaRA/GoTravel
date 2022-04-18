@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gotravel/pages/login_page.dart';
-import 'package:gotravel/theme/my_colors.dart';
+import 'package:gotravel/src/pages/login_page.dart';
+import 'package:gotravel/src/theme/my_colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gotravel/theme/my_colors.dart';
+import 'package:gotravel/src/theme/my_colors.dart';
 
 class RoundedButton extends StatelessWidget {
   final String text;

@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gotravel/components/button_text.dart';
-import 'package:gotravel/components/rounded_button.dart';
-import 'package:gotravel/components/rounded_input_fiel.dart';
-import 'package:gotravel/components/rounded_password_field.dart';
 import 'package:gotravel/constants.dart';
-import 'package:gotravel/theme/my_colors.dart';
+import 'package:gotravel/src/components/button_text.dart';
+import 'package:gotravel/src/components/rounded_button.dart';
+import 'package:gotravel/src/components/rounded_input_fiel.dart';
+import 'package:gotravel/src/components/rounded_password_field.dart';
+import 'package:gotravel/src/theme/my_colors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

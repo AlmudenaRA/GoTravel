@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gotravel/constants.dart';
-import 'package:get/get.dart';
+import 'package:gotravel/src/pages/home_page.dart';
 import 'package:gotravel/src/pages/login_page.dart';
 import 'package:gotravel/src/pages/sing_up.dart';
 import 'package:gotravel/src/pages/splash_screen.dart';
@@ -29,8 +29,6 @@ class MyApp extends StatelessWidget {
       title: 'GoTravel',
       debugShowCheckedModeBanner: false, //quitar etiqueta debug
 
-      navigatorKey: Get.key,
-
       theme: ThemeData(
         scaffoldBackgroundColor: MyColors.background,
         primaryColor: MyColors.background,
@@ -43,6 +41,7 @@ class MyApp extends StatelessWidget {
         Constants.routesSplash: (_) => const SplashScreen(),
         Constants.routesLogin: (_) => const LoginPage(),
         Constants.routesSingUp: (_) => const SingUp(),
+        Constants.routesHome: (_) => const MyHomePage(),
       },
     );
   }

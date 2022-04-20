@@ -16,4 +16,5 @@ class Constants {
   static const String routesSplash = 'splash_screen';
   static const String routesLogin = 'login';
   static const String routesSingUp = 'sing_up';
+  static const String routesHome = 'home';
 }

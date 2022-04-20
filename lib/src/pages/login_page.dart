@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/constants.dart';
 import 'package:gotravel/src/components/button_text.dart';
 import 'package:gotravel/src/components/rounded_button.dart';
 import 'package:gotravel/src/components/rounded_input_fiel.dart';
 import 'package:gotravel/src/components/rounded_password_field.dart';
+import 'package:gotravel/src/data/auth_service.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 
 class LoginPage extends StatefulWidget {
@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 10,
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () => signInWithGoogle(context),
               iconSize: 50,
               icon: Image.asset(
                 'assets/icons/google.png',

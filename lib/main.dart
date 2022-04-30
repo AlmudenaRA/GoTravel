@@ -9,6 +9,7 @@ import 'package:gotravel/src/pages/splash_screen.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 
 void main() async {
+  //Inicializa Firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 

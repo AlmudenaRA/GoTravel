@@ -34,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
             RoundedInputField(
               hintText: Constants.textEmail,
               icon: Icons.email_outlined,
+              keyboardType: TextInputType.emailAddress,
               onChanged: (value) {},
             ),
             RoundedPasswordField(

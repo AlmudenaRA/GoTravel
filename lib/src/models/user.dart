@@ -1,4 +1,4 @@
-class User {
+class Users {
   final String id;
   final String userName;
   final String password;
@@ -7,10 +7,10 @@ class User {
   final int puntos;
   final List<String> fav;
 
-  User(this.id, this.userName, this.password, this.email, this.avatar,
+  Users(this.id, this.userName, this.password, this.email, this.avatar,
       this.puntos, this.fav);
 
-  User.fromJson(Map<String, dynamic> json)
+  Users.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         userName = json['userName'],
         password = json['password'],

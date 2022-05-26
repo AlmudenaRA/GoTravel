@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gotravel/constants.dart';
-import 'package:gotravel/src/components/text_field_container.dart';
+import 'package:gotravel/src/core/constants.dart';
+import 'package:gotravel/src/widget/text_field_container.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 
 class RoundedPasswordField extends StatelessWidget {
@@ -14,11 +14,13 @@ class RoundedPasswordField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextField(
+        style: const TextStyle(color: MyColors.textWhite),
         obscureText: true,
         onChanged: onChanged,
         keyboardType: TextInputType.emailAddress,
         decoration: const InputDecoration(
           hintText: Constants.textPass,
+          hintStyle: TextStyle(color: MyColors.textWhite),
           prefixIcon: Icon(
             Icons.lock_outlined,
             color: MyColors.textWhite,

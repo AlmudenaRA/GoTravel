@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gotravel/constants.dart';
-import 'package:gotravel/src/components/button_text.dart';
-import 'package:gotravel/src/components/rounded_button.dart';
-import 'package:gotravel/src/components/rounded_input_fiel.dart';
-import 'package:gotravel/src/components/rounded_password_field.dart';
+import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/data/auth_service.dart';
+import 'package:gotravel/src/models/user_model.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
+import 'package:gotravel/src/widget/button_auth.dart';
+import 'package:gotravel/src/widget/button_text.dart';
+import 'package:gotravel/src/widget/rounded_input_fiel.dart';
+import 'package:gotravel/src/utils/utils.dart' as utils;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,6 +16,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  UserModel users = UserModel();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,14 +37,20 @@ class _LoginPageState extends State<LoginPage> {
             RoundedInputField(
               hintText: Constants.textEmail,
               icon: Icons.email_outlined,
-              onChanged: (value) {},
+              keyboardType: TextInputType.emailAddress,
+              //validator: (val) => utils.validateEmail(val!),
+              onSaved: (val) => users.email = val,
             ),
-            RoundedPasswordField(
-              onChanged: (value) {},
+            RoundedInputField(
+              hintText: Constants.textPass,
+              icon: Icons.lock_outlined,
+              pass: true,
+              //validator: (val) => utils.validatePass(val!),
+              onSaved: (val) => users.password = val,
             ),
-            const RoundedButton(
+            AuthButton(
               text: Constants.buttonLogin,
-              //onPressed: () => _onPressed(),
+              onPressed: () => _onPressed(),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(color: MyColors.textWhite),
                 ),
                 ButtonText(
-                  text: Constants.buttonSingUp,
+                  text: Constants.buttonSingUpLogin,
                   color: MyColors.secundaryLig,
                   navigation: Constants.routesSingUp,
                 ),
@@ -85,4 +94,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  _onPressed() {}
 }

@@ -8,7 +8,6 @@ class RoundedInputField extends StatefulWidget {
   final IconData icon;
   final TextInputType keyboardType;
   final Function onSaved;
-  //final String? Function(String?)? validator;
   final bool pass;
   final bool email;
   final String? initialValue;
@@ -19,7 +18,6 @@ class RoundedInputField extends StatefulWidget {
     required this.icon,
     this.keyboardType = TextInputType.name,
     required this.onSaved,
-    //this.validator,
     this.pass = false,
     this.email = false,
     this.initialValue,

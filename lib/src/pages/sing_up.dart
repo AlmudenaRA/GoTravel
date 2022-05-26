@@ -188,19 +188,19 @@ class _SingUpState extends State<SingUp> {
 
   _imagenStorage() {
     firebase_storage.FirebaseStorage.instance
-        .ref("images/user/${_auth.currentUser!.uid}.jpeg")
-        .putFile(File(image!.path))
-        .whenComplete(() => {
-              downImage(users).then(
-                () => _closeCircAndNav(),
-              ),
-            });
+        .ref("images/user/${_auth.currentUser!.uid}.jpg")
+        .putFile(File(image!.path));
+    // .whenComplete(() => {
+    //       downImage(users).then(
+    //         () => _closeCircAndNav(),
+    //       ),
+    //     });
   }
 
   ///Se descarga la url de firebaseStorage
   downImage(user) async {
     String url = await firebase_storage.FirebaseStorage.instance
-        .ref("images/user/${_auth.currentUser!.uid}.jpeg")
+        .ref("images/user/${_auth.currentUser!.uid}.jpg")
         .getDownloadURL();
     user.avatar = url;
     await _auth.currentUser!.updatePhotoURL(user.avatar);
@@ -212,11 +212,12 @@ class _SingUpState extends State<SingUp> {
     }
     _formKey.currentState!.save();
 
+    auth_service.createUserWithEmailAndPassword(context, users);
+
     if (image != null) {
       _imagenStorage();
+      downImage(users);
     }
-
-    auth_service.createUserWithEmailAndPassword(context, users);
   }
 
   _closeCircAndNav() {

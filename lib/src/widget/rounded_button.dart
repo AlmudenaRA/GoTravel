@@ -3,6 +3,7 @@ import 'package:gotravel/src/theme/my_colors.dart';
 
 class RoundedButton extends StatelessWidget {
   final String text;
+  final String navigation;
   final Color color;
   final Color textColor;
 
@@ -11,6 +12,7 @@ class RoundedButton extends StatelessWidget {
     required this.text,
     this.color = MyColors.secundary,
     this.textColor = MyColors.textButton,
+    required this.navigation,
   }) : super(key: key);
 
   @override
@@ -29,7 +31,9 @@ class RoundedButton extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all<Color>(color),
             foregroundColor: MaterialStateProperty.all<Color>(textColor),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, navigation);
+          },
           child: Text(text),
         ),
       ),

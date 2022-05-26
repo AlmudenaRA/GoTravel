@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:gotravel/constants.dart';
+import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
-import 'package:image_picker/image_picker.dart';
 
 class UserPhoto extends StatelessWidget {
   final File? pickedFile;

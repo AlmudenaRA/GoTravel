@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gotravel/constants.dart';
-import 'package:gotravel/src/components/text_field_container.dart';
+import 'package:gotravel/src/core/constants.dart';
+import 'package:gotravel/src/widget/text_field_container.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 
 class RoundedPasswordField extends StatelessWidget {

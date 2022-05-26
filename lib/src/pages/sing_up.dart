@@ -1,12 +1,16 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gotravel/constants.dart';
-import 'package:gotravel/src/components/button_text_pop.dart';
-import 'package:gotravel/src/components/rounded_button.dart';
-import 'package:gotravel/src/components/rounded_input_fiel.dart';
-import 'package:gotravel/src/components/rounded_password_field.dart';
+import 'package:gotravel/src/core/constants.dart';
+import 'package:gotravel/src/widget/button_auth.dart';
+import 'package:gotravel/src/widget/button_text_pop.dart';
+import 'package:gotravel/src/widget/rounded_input_fiel.dart';
+import 'package:gotravel/src/models/user_model.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:gotravel/src/data/auth_service.dart' as auth_service;
+import 'package:gotravel/src/utils/utils.dart' as utils;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class SingUp extends StatefulWidget {
   const SingUp({Key? key}) : super(key: key);
@@ -18,6 +22,10 @@ class SingUp extends StatefulWidget {
 class _SingUpState extends State<SingUp> {
   File? _pickedFile;
   final ImagePicker _picker = ImagePicker();
+  XFile? image;
+  final _formKey = GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance;
+  UserModel users = UserModel();
 
   @override
   Widget build(BuildContext context) {
@@ -26,42 +34,50 @@ class _SingUpState extends State<SingUp> {
         backgroundColor: MyColors.background,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            _choosePhoto(),
-            RoundedInputField(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              _choosePhoto(),
+              RoundedInputField(
                 hintText: Constants.textUserName,
                 icon: Icons.person,
-                onChanged: (value) {}),
-            RoundedInputField(
-              hintText: Constants.textEmail,
-              icon: Icons.email_outlined,
-              keyboardType: TextInputType.emailAddress,
-              onChanged: (value) {},
-            ),
-            RoundedPasswordField(
-              onChanged: (value) {},
-            ),
-            const RoundedButton(
-              text: Constants.buttonSingUp,
-              //onPressed: () => _onPressed(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                Text(
-                  Constants.singAccount,
-                  style: TextStyle(color: MyColors.textWhite),
-                ),
-                ButtonTextPop(
-                  text: Constants.buttonSingIn,
-                  color: MyColors.secundaryLig,
-                  navigation: Constants.routesLogin,
-                ),
-              ],
-            ),
-          ],
+                onSaved: (val) => users.userName = val,
+              ),
+              RoundedInputField(
+                hintText: Constants.textEmail,
+                icon: Icons.email_outlined,
+                email: true,
+                keyboardType: TextInputType.emailAddress,
+                onSaved: (val) => users.email = val,
+              ),
+              RoundedInputField(
+                hintText: Constants.textPass,
+                icon: Icons.lock_outlined,
+                pass: true,
+                onSaved: (val) => users.password = val,
+              ),
+              AuthButton(
+                text: Constants.buttonSingUp,
+                onPressed: () => _onPressed(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const <Widget>[
+                  Text(
+                    Constants.singAccount,
+                    style: TextStyle(color: MyColors.textWhite),
+                  ),
+                  ButtonTextPop(
+                    text: Constants.buttonSingIn,
+                    color: MyColors.secundaryLig,
+                    navigation: Constants.routesLogin,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -69,10 +85,10 @@ class _SingUpState extends State<SingUp> {
 
   //Seleccionar una imagen de la galería o cámara, según reciba por parámetro
   _pickImage(ImageSource source) async {
-    final XFile? image = await _picker.pickImage(source: source);
+    image = await _picker.pickImage(source: source);
     setState(() {
       if (image != null) {
-        _pickedFile = File(image.path);
+        _pickedFile = File(image!.path);
         Navigator.pop(context);
       }
     });
@@ -91,7 +107,6 @@ class _SingUpState extends State<SingUp> {
               radius: 68,
               backgroundColor: MyColors.background,
               backgroundImage:
-                  // ignore: unnecessary_null_comparison
                   _pickedFile == null ? null : FileImage(_pickedFile!),
             ),
           ),
@@ -169,5 +184,43 @@ class _SingUpState extends State<SingUp> {
             ),
           );
         });
+  }
+
+  _imagenStorage() {
+    firebase_storage.FirebaseStorage.instance
+        .ref("images/user/${_auth.currentUser!.uid}.jpeg")
+        .putFile(File(image!.path))
+        .whenComplete(() => {
+              downImage(users).then(
+                () => _closeCircAndNav(),
+              ),
+            });
+  }
+
+  ///Se descarga la url de firebaseStorage
+  downImage(user) async {
+    String url = await firebase_storage.FirebaseStorage.instance
+        .ref("images/user/${_auth.currentUser!.uid}.jpeg")
+        .getDownloadURL();
+    user.avatar = url;
+    await _auth.currentUser!.updatePhotoURL(user.avatar);
+  }
+
+  _onPressed() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    _formKey.currentState!.save();
+
+    if (image != null) {
+      _imagenStorage();
+    }
+
+    auth_service.createUserWithEmailAndPassword(context, users);
+  }
+
+  _closeCircAndNav() {
+    utils.hideLoadingIndicator(context);
+    Navigator.of(context).pushReplacementNamed(Constants.routesLogin);
   }
 }

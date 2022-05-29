@@ -190,11 +190,6 @@ class _SingUpState extends State<SingUp> {
     firebase_storage.FirebaseStorage.instance
         .ref("images/user/${_auth.currentUser!.uid}.jpg")
         .putFile(File(image!.path));
-    // .whenComplete(() => {
-    //       downImage(users).then(
-    //         () => _closeCircAndNav(),
-    //       ),
-    //     });
   }
 
   ///Se descarga la url de firebaseStorage

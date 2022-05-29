@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gotravel/src/core/constants.dart';
+import 'package:gotravel/src/data/share_prefs.dart';
 import 'package:gotravel/src/pages/home_page.dart';
 import 'package:gotravel/src/pages/login_page.dart';
 import 'package:gotravel/src/pages/sing_up.dart';
@@ -12,6 +13,10 @@ void main() async {
   //Inicializa Firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  //iniciar preferencias de la app
+  final prefs = SharePrefs();
+  prefs.initPrefs();
 
   runApp(const MyApp());
 }

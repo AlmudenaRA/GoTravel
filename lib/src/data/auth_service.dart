@@ -5,6 +5,7 @@ import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/models/user_model.dart';
 import 'package:gotravel/src/provider/user_provider.dart' as user_provider;
 import 'package:gotravel/src/utils/utils.dart' as utils;
+import 'package:gotravel/src/data/share_prefs.dart';
 
 final googleSignIn = GoogleSignIn();
 final _firebaseAuth = FirebaseAuth.instance;
@@ -21,7 +22,8 @@ signInWithGoogle(context) async {
     );
     await _firebaseAuth.signInWithCredential(credential).then((value) {
       user_provider.addUserAuth(_firebaseAuth);
-      Navigator.pushNamed(context, Constants.routesHome);
+      SharePrefs.instance.provider = Constants.provGoogle;
+      Navigator.of(context).pushReplacementNamed(Constants.routesHome);
     });
   } catch (e) {
     debugPrint(e.toString());
@@ -42,7 +44,7 @@ Future<void> signOut() async {
 createUserWithEmailAndPassword(context, UserModel user) async {
   user.password = utils.sha256Password(user.password!);
   //crea un alertDialog para darle feedback al usuario de que está trabajando internamente
-  utils.showLoadingIndicator(context, 'Registrando');
+  utils.showLoadingIndicator(context, Constants.loadSingUp);
   try {
     UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: user.email!, password: user.password!);
@@ -66,6 +68,30 @@ createUserWithEmailAndPassword(context, UserModel user) async {
     }
   } catch (e) {
     utils.hideLoadingIndicator(context);
+    _errorAlert(context, e);
+  }
+}
+
+//autentica un usuario con email y contraseña
+singInWithEmailAndPass(context, UserModel user) async {
+  utils.showLoadingIndicator(context, Constants.loadLogin);
+  try {
+    await _firebaseAuth
+        .signInWithEmailAndPassword(
+            email: user.email!, password: utils.sha256Password(user.password!))
+        .then((value) {
+      utils.hideLoadingIndicator(context);
+      SharePrefs.instance.provider = (Constants.provEmail);
+      Navigator.of(context).pushReplacementNamed(Constants.routesHome);
+    }); //added this line
+  } on FirebaseAuthException catch (e) {
+    //error controlado de email o contraseñas no correctas
+    if (e.code == Constants.userNotFound || e.code == Constants.wrongPass) {
+      _errorAlert(context, Constants.wrongUserOrPass);
+    } else {
+      _errorAlert(context, e.message);
+    }
+  } catch (e) {
     _errorAlert(context, e);
   }
 }

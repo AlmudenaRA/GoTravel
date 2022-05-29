@@ -9,7 +9,6 @@ import 'package:gotravel/src/models/user_model.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:gotravel/src/data/auth_service.dart' as auth_service;
-import 'package:gotravel/src/utils/utils.dart' as utils;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class SingUp extends StatefulWidget {
@@ -190,11 +189,6 @@ class _SingUpState extends State<SingUp> {
     firebase_storage.FirebaseStorage.instance
         .ref("images/user/${_auth.currentUser!.uid}.jpg")
         .putFile(File(image!.path));
-    // .whenComplete(() => {
-    //       downImage(users).then(
-    //         () => _closeCircAndNav(),
-    //       ),
-    //     });
   }
 
   ///Se descarga la url de firebaseStorage
@@ -218,10 +212,5 @@ class _SingUpState extends State<SingUp> {
       _imagenStorage();
       downImage(users);
     }
-  }
-
-  _closeCircAndNav() {
-    utils.hideLoadingIndicator(context);
-    Navigator.of(context).pushReplacementNamed(Constants.routesLogin);
   }
 }

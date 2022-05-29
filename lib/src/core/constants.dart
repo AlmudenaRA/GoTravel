@@ -49,4 +49,16 @@ class Constants {
       'La contraseña debe tener al menos 8 caracteres';
   static const String error = 'Error';
   static const String emailRegistered = 'El email ya está registrado';
+  static const String userNotFound = 'Usuario no encontrado';
+  static const String wrongPass = 'Contraseña incorrecta';
+  static const String wrongUserOrPass = 'Usuario o contraseña incorrectos';
+
+  //Provider
+  static const String provider = 'Provider';
+  static const String provGoogle = 'Google';
+  static const String provEmail = 'Email';
+
+  //Loading
+  static const String loadSingUp = 'Registrando';
+  static const String loadLogin = 'Iniciando sesión';
 }

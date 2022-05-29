@@ -6,7 +6,6 @@ import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/widget/button_auth.dart';
 import 'package:gotravel/src/widget/button_text.dart';
 import 'package:gotravel/src/widget/rounded_input_fiel.dart';
-import 'package:gotravel/src/utils/utils.dart' as utils;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

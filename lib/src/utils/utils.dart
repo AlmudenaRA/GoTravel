@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
@@ -76,3 +77,10 @@ loadingIndicator(
     Color? backgroundColor,
     Color? pathBackgroundColor,
     Text? text}) {}
+
+//coge la imagen del usuario de la bd o muestra un icono
+pickImage(FirebaseAuth _auth) {
+  _auth.currentUser?.photoURL != null
+      ? NetworkImage('${_auth.currentUser!.photoURL}')
+      : const Icon(Icons.person);
+}

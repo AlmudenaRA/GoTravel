@@ -5,7 +5,7 @@ import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/data/share_prefs.dart';
 import 'package:gotravel/src/pages/home_page.dart';
 import 'package:gotravel/src/pages/login_page.dart';
-import 'package:gotravel/src/pages/sing_up.dart';
+import 'package:gotravel/src/pages/sing_up_page.dart';
 import 'package:gotravel/src/pages/splash_screen.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       routes: {
         Constants.routesSplash: (_) => const SplashScreen(),
         Constants.routesLogin: (_) => const LoginPage(),
-        Constants.routesSingUp: (_) => const SingUp(),
+        Constants.routesSingUp: (_) => const SingUpPage(),
         Constants.routesHome: (_) => const MyHomePage(),
       },
     );

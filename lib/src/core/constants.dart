@@ -61,4 +61,8 @@ class Constants {
   //Loading
   static const String loadSingUp = 'Registrando';
   static const String loadLogin = 'Iniciando sesión';
+
+  //BottomAppBar
+  static const String bAppBarHome = 'Inicio';
+  static const String bAppBarFav = 'Favoritos';
 }

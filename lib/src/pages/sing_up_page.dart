@@ -11,14 +11,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:gotravel/src/data/auth_service.dart' as auth_service;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-class SingUp extends StatefulWidget {
-  const SingUp({Key? key}) : super(key: key);
+class SingUpPage extends StatefulWidget {
+  const SingUpPage({Key? key}) : super(key: key);
 
   @override
-  State<SingUp> createState() => _SingUpState();
+  State<SingUpPage> createState() => _SingUpPageState();
 }
 
-class _SingUpState extends State<SingUp> {
+class _SingUpPageState extends State<SingUpPage> {
   File? _pickedFile;
   final ImagePicker _picker = ImagePicker();
   XFile? image;

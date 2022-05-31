@@ -77,10 +77,3 @@ loadingIndicator(
     Color? backgroundColor,
     Color? pathBackgroundColor,
     Text? text}) {}
-
-//coge la imagen del usuario de la bd o muestra un icono
-pickImage(FirebaseAuth _auth) {
-  _auth.currentUser?.photoURL != null
-      ? NetworkImage('${_auth.currentUser!.photoURL}')
-      : const Icon(Icons.person);
-}

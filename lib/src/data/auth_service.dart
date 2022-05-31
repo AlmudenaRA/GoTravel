@@ -23,6 +23,7 @@ signInWithGoogle(context) async {
     await _firebaseAuth.signInWithCredential(credential).then((value) {
       user_provider.addUserAuth(_firebaseAuth);
       SharePrefs.instance.provider = Constants.provGoogle;
+      utils.hideLoadingIndicator(context);
       Navigator.of(context).pushReplacementNamed(Constants.routesHome);
     });
   } catch (e) {
@@ -30,14 +31,13 @@ signInWithGoogle(context) async {
   }
 }
 
-//Cerrar sesión Google
-Future<void> signOutGoogle() async {
-  await googleSignIn.signOut();
-}
-
-//Cerrar sesión auth
-Future<void> signOut() async {
-  await _firebaseAuth.signOut();
+logOut(context) async {
+  if (SharePrefs.instance.provider == Constants.provGoogle) {
+    await googleSignIn.signOut();
+  }
+  await _firebaseAuth.signOut().then((value) {
+    Navigator.of(context).pushReplacementNamed(Constants.routesLogin);
+  });
 }
 
 //Registrar usuario

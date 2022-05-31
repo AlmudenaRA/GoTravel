@@ -13,7 +13,7 @@ Future<void> addUser(UserModel user) async {
 
 //Añadir un usuario de google a firestore.
 Future<void> addUserAuth(FirebaseAuth auth) async {
-  userRef.doc(auth.currentUser?.uid).get().then((doc) => {
+  userRef.doc(auth.currentUser!.uid).get().then((doc) => {
         if (!doc.exists)
           {
             userRef.doc(auth.currentUser!.uid).set({

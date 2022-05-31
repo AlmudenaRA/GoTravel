@@ -1,5 +1,5 @@
 class Constants {
-  //Textfield
+  //Text
   static const String textEmail = 'Email';
   static const String textPass = 'Contraseña';
   static const String textUserName = 'Nombre de usuario';
@@ -8,13 +8,18 @@ class Constants {
   static const String textGallery = 'Galería';
   static const String textRegistration = 'Registro';
   static const String textRegistered = 'Registrado correctamente';
+  static const String textEditProfile = 'Editar perfil';
+  static const String textFavorite = 'Favoritos';
+  static const String textPoint = 'Puntos';
+  static const String textLogOut = 'Cerrar sesión';
 
   //Button
-  static const String buttonLogin = 'Iniciar sesión';
-  static const String buttonSingUp = 'Registrarse';
-  static const String buttonSingUpLogin = 'Registrarse aquí';
-  static const String buttonSingIn = 'Inicie sesión';
+  static const String buttonLogin = 'INICIAR SESIÓN';
+  static const String buttonSingUp = 'REGISTRARSE';
+  static const String buttonSingUpLogin = 'REGISTRESE AQUÍ';
+  static const String buttonSingIn = 'INICIE SESIÓN';
   static const String buttonOk = 'OK';
+  static const String buttonUpdateProfile = 'MODIFICAR';
 
   //Login
   static const String textCuenta = "¿No tiene cuenta? ";
@@ -26,6 +31,9 @@ class Constants {
   static const String routesLogin = 'login';
   static const String routesSingUp = 'sing_up';
   static const String routesHome = 'home';
+  static const String routesFavorite = 'favorite';
+  static const String routesProfile = 'profile';
+  static const String routesEditProfile = 'edit_profile';
 
   //Sing up
   static const String singAccount = "¿Ya tiene cuenta? ";
@@ -65,4 +73,8 @@ class Constants {
   //BottomAppBar
   static const String bAppBarHome = 'Inicio';
   static const String bAppBarFav = 'Favoritos';
+
+  //profile
+  static const String defaultImage =
+      'https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png';
 }

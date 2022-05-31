@@ -4,7 +4,7 @@ import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/pages/favorite_page.dart';
 import 'package:gotravel/src/pages/profile_page.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
-import 'package:gotravel/src/utils/utils.dart' as utils;
+import 'package:gotravel/src/pages/main_page';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -15,11 +15,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _auth = FirebaseAuth.instance;
-  int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    MyHomePage(),
-    FavoritePage(),
-    ProfilePage(),
+  int _selectedIndex = 2;
+  final List _widgetOptions = [
+    const MainPage(),
+    const FavoritePage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -43,8 +43,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
               icon: CircleAvatar(
-                backgroundImage: utils.pickImage(_auth),
-                radius: 13,
+                backgroundColor: MyColors.background,
+                radius: 15,
+                backgroundImage: _auth.currentUser!.photoURL != null
+                    ? NetworkImage('${_auth.currentUser!.photoURL}')
+                    : const NetworkImage(Constants.defaultImage),
               ),
               label: '${_auth.currentUser!.displayName}'),
         ],

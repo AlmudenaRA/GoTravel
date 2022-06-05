@@ -21,6 +21,8 @@ class Constants {
   static const String buttonSingIn = 'INICIE SESIÓN';
   static const String buttonOk = 'OK';
   static const String buttonUpdateProfile = 'MODIFICAR';
+  static const String buttonApply = 'APLICAR';
+  static const String buttonCancel = 'CANCELAR';
 
   //Login
   static const String textCuenta = "¿No tiene cuenta? ";
@@ -82,4 +84,9 @@ class Constants {
   //profile
   static const String defaultImage =
       'https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png';
+
+  //points
+  static const String point = 'Puntos: ';
+  static const String discount = 'Descuento: ';
+  static const String code = 'Código: ';
 }

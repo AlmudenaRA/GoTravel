@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
-import 'package:gotravel/src/widget/button_auth.dart';
+import 'package:gotravel/src/widget/button.dart';
 import 'package:gotravel/src/widget/rounded_input_fiel.dart';
 import 'package:gotravel/src/models/user_model.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
@@ -59,7 +59,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 updatePass: true,
                 onSaved: (val) => users.password = val,
               ),
-              AuthButton(
+              Button(
+                width: 0.9,
+                heigth: 65,
+                color: MyColors.secundary,
                 text: Constants.buttonUpdateProfile,
                 onPressed: () => _onPressed(),
               ),

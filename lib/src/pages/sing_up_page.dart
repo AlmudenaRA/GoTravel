@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
-import 'package:gotravel/src/widget/button_auth.dart';
+import 'package:gotravel/src/widget/button.dart';
 import 'package:gotravel/src/widget/button_text_pop.dart';
 import 'package:gotravel/src/widget/rounded_input_fiel.dart';
 import 'package:gotravel/src/models/user_model.dart';
@@ -58,7 +58,10 @@ class _SingUpPageState extends State<SingUpPage> {
                 pass: true,
                 onSaved: (val) => users.password = val,
               ),
-              AuthButton(
+              Button(
+                width: 0.9,
+                heigth: 65,
+                color: MyColors.secundary,
                 text: Constants.buttonSingUp,
                 onPressed: () => _onPressed(),
               ),

@@ -3,6 +3,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
+import 'package:gotravel/src/widget/text_point.dart';
 
 //comprueba si el formato del email es válido
 bool validEmail(String email) {

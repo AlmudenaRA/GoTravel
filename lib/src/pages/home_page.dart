@@ -4,7 +4,7 @@ import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/pages/favorite_page.dart';
 import 'package:gotravel/src/pages/profile_page.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
-import 'package:gotravel/src/pages/main_page';
+import 'package:gotravel/src/pages/main_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);

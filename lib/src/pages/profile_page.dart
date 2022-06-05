@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
+import 'package:gotravel/src/pages/points_page.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/data/share_prefs.dart';
 import 'package:gotravel/src/widget/separator_profile.dart';
@@ -78,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
               text: Constants.textPoint,
               icon: Icons.app_shortcut,
               size: 25.0,
-              onPressed: () => auth_service.logOut(context)),
+              onPressed: () => showDialogPoint(context)),
           SeparatorProfile(
               text: Constants.textLogOut,
               icon: Icons.logout,

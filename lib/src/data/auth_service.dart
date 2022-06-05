@@ -23,6 +23,7 @@ signInWithGoogle(context) async {
     await _firebaseAuth.signInWithCredential(credential).then((value) {
       user_provider.addUserAuth(_firebaseAuth);
       SharePrefs.instance.provider = Constants.provGoogle;
+      utils.hideLoadingIndicator(context);
       Navigator.of(context).pushReplacementNamed(Constants.routesHome);
     });
   } catch (e) {
@@ -30,14 +31,13 @@ signInWithGoogle(context) async {
   }
 }
 
-//Cerrar sesión Google
-Future<void> signOutGoogle() async {
-  await googleSignIn.signOut();
-}
-
-//Cerrar sesión auth
-Future<void> signOut() async {
-  await _firebaseAuth.signOut();
+logOut(context) async {
+  if (SharePrefs.instance.provider == Constants.provGoogle) {
+    await googleSignIn.signOut();
+  }
+  await _firebaseAuth.signOut().then((value) {
+    Navigator.of(context).pushReplacementNamed(Constants.routesLogin);
+  });
 }
 
 //Registrar usuario
@@ -48,14 +48,17 @@ createUserWithEmailAndPassword(context, UserModel user) async {
   try {
     UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: user.email!, password: user.password!);
-    User? us = result.user;
-    await us!.updateDisplayName(user.userName);
+    User us = result.user!;
+    await us.updateDisplayName(user.userName);
     user.id =
         _firebaseAuth.currentUser!.uid; //se añade el id del auth al modelo
+
     await user_provider.addUser(user); //se añade a firestore
+
     if (user.avatar != null) {
       await _firebaseAuth.currentUser!.updatePhotoURL(user.avatar);
     }
+
     utils.hideLoadingIndicator(context);
     utils.showAlertDialog(context, Constants.textRegistration,
         Constants.textRegistered, () => Navigator.pop(context));
@@ -96,13 +99,45 @@ singInWithEmailAndPass(context, UserModel user) async {
   }
 }
 
+Future<void> updateProfile(context, UserModel user) async {
+  try {
+    //user.id = _firebaseAuth.currentUser!.uid;
+    if (user.password!.isNotEmpty) {
+      user.password = utils.sha256Password(user.password!);
+      _firebaseAuth.currentUser!.updatePassword(user.password!);
+    }
+    if (_firebaseAuth.currentUser!.email != user.email) {
+      await _firebaseAuth.currentUser!.updateEmail(user.email!);
+    }
+    if (user.avatar != null) {
+      await _firebaseAuth.currentUser!.updatePhotoURL(user.avatar);
+    }
+    if (_firebaseAuth.currentUser!.displayName != user.userName) {
+      await _firebaseAuth.currentUser!.updateDisplayName(user.userName);
+    }
+
+    _closeCircAndNav(context, user);
+  } on FirebaseAuthException catch (e) {
+    if (e.code == Constants.recentLogin) {
+      _errorAlert(context, Constants.recentLogin);
+    } else if (e.code == Constants.emailInUse) {
+      _errorAlert(context, Constants.emailInUse);
+    } else {
+      _errorAlert(context, e.code);
+    }
+  } catch (ex) {
+    _errorAlert(context, ex.toString());
+  }
+}
+
 _errorAlert(context, val) {
   utils.hideLoadingIndicator(context);
   utils.showAlertDialog(context, Constants.error, val);
 }
 
 _closeCircAndNav(context, user) {
-  user_provider.updateUser(_firebaseAuth, user.pass ?? user.pass);
+  user_provider.updateUser(
+      _firebaseAuth, user.password!.isNotEmpty ? user.pass : null);
   utils.hideLoadingIndicator(context);
   Navigator.of(context).pushReplacementNamed(Constants.routesHome);
 }

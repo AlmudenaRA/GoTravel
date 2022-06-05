@@ -10,6 +10,7 @@ import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:gotravel/src/data/auth_service.dart' as auth_service;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:gotravel/src/utils/utils.dart' as utils;
 
 class SingUpPage extends StatefulWidget {
   const SingUpPage({Key? key}) : super(key: key);
@@ -105,8 +106,9 @@ class _SingUpPageState extends State<SingUpPage> {
             child: CircleAvatar(
               radius: 68,
               backgroundColor: MyColors.background,
-              backgroundImage:
-                  _pickedFile == null ? null : FileImage(_pickedFile!),
+              backgroundImage: _pickedFile == null
+                  ? const NetworkImage(Constants.defaultImage) as ImageProvider
+                  : FileImage(_pickedFile!),
             ),
           ),
         ),
@@ -192,12 +194,12 @@ class _SingUpPageState extends State<SingUpPage> {
   }
 
   ///Se descarga la url de firebaseStorage
-  downImage(user) async {
+  downImage(users) async {
     String url = await firebase_storage.FirebaseStorage.instance
         .ref("images/user/${_auth.currentUser!.uid}.jpg")
         .getDownloadURL();
-    user.avatar = url;
-    await _auth.currentUser!.updatePhotoURL(user.avatar);
+    users.avatar = url;
+    await _auth.currentUser!.updatePhotoURL(users.avatar);
   }
 
   _onPressed() async {
@@ -211,6 +213,12 @@ class _SingUpPageState extends State<SingUpPage> {
     if (image != null) {
       _imagenStorage();
       downImage(users);
+      _closeCircAndNav();
     }
+  }
+
+  _closeCircAndNav() {
+    utils.hideLoadingIndicator(context);
+    Navigator.of(context).pushReplacementNamed(Constants.routesLogin);
   }
 }

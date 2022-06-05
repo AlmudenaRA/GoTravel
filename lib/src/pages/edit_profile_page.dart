@@ -3,13 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/widget/button_auth.dart';
-import 'package:gotravel/src/widget/button_text_pop.dart';
 import 'package:gotravel/src/widget/rounded_input_fiel.dart';
 import 'package:gotravel/src/models/user_model.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:gotravel/src/data/auth_service.dart' as auth_service;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:gotravel/src/utils/utils.dart' as utils;
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
@@ -43,6 +43,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 hintText: Constants.textUserName,
                 icon: Icons.person,
                 onSaved: (val) => users.userName = val,
+                initialValue: _auth.currentUser!.displayName,
               ),
               RoundedInputField(
                 hintText: Constants.textEmail,
@@ -50,11 +51,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 email: true,
                 keyboardType: TextInputType.emailAddress,
                 onSaved: (val) => users.email = val,
+                initialValue: _auth.currentUser!.email,
               ),
               RoundedInputField(
                 hintText: Constants.textPass,
                 icon: Icons.lock_outlined,
-                pass: true,
+                updatePass: true,
                 onSaved: (val) => users.password = val,
               ),
               AuthButton(
@@ -91,8 +93,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
             child: CircleAvatar(
               radius: 68,
               backgroundColor: MyColors.background,
-              backgroundImage:
-                  _pickedFile == null ? null : FileImage(_pickedFile!),
+              backgroundImage: _pickedFile != null
+                  ? FileImage(_pickedFile!) as ImageProvider
+                  : _auth.currentUser!.photoURL != null
+                      ? NetworkImage('${_auth.currentUser!.photoURL}')
+                      : const NetworkImage(Constants.defaultImage),
             ),
           ),
         ),
@@ -171,32 +176,62 @@ class _EditProfilePageState extends State<EditProfilePage> {
         });
   }
 
-  _imagenStorage() {
-    firebase_storage.FirebaseStorage.instance
-        .ref("images/user/${_auth.currentUser!.uid}.jpg")
-        .putFile(File(image!.path));
-  }
-
-  ///Se descarga la url de firebaseStorage
-  downImage(user) async {
-    String url = await firebase_storage.FirebaseStorage.instance
-        .ref("images/user/${_auth.currentUser!.uid}.jpg")
-        .getDownloadURL();
-    user.avatar = url;
-    await _auth.currentUser!.updatePhotoURL(user.avatar);
-  }
-
   _onPressed() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     _formKey.currentState!.save();
 
-    auth_service.createUserWithEmailAndPassword(context, users);
+    updateUser();
+  }
 
-    if (image != null) {
-      _imagenStorage();
-      downImage(users);
+  Future<void> updateUser() async {
+    utils.showLoadingIndicator(context, Constants.loadUpdate);
+    try {
+      if (_auth.currentUser!.displayName != users.userName ||
+          _auth.currentUser!.email != users.email ||
+          users.password!.isNotEmpty) {
+        if (image != null) {
+          imagenStorage();
+          downImage(users);
+          _closeCircAndNav();
+        } else {
+          await auth_service.updateProfile(context, users);
+        }
+      } else if (image != null) {
+        imagenStorage();
+        downImage(users);
+        _closeCircAndNav();
+      } else {
+        utils.hideLoadingIndicator(context);
+        utils.showAlertDialog(
+            context, Constants.textInfo, Constants.someChange);
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        utils.hideLoadingIndicator(context);
+        utils.showAlertDialog(context, Constants.error, Constants.recentLogin);
+      }
     }
+  }
+
+  imagenStorage() {
+    firebase_storage.FirebaseStorage.instance
+        .ref("images/user/${_auth.currentUser!.uid}.jpg")
+        .putFile(File(image!.path));
+  }
+
+  ///Se descarga la url de firebaseStorage
+  downImage(users) async {
+    String url = await firebase_storage.FirebaseStorage.instance
+        .ref("images/user/${_auth.currentUser!.uid}.jpg")
+        .getDownloadURL();
+    users.avatar = url;
+    await _auth.currentUser!.updatePhotoURL(users.avatar);
+  }
+
+  _closeCircAndNav() {
+    utils.hideLoadingIndicator(context);
+    Navigator.of(context).pushReplacementNamed(Constants.routesHome);
   }
 }

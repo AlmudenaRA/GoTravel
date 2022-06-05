@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
@@ -33,11 +32,12 @@ void showAlertDialog(BuildContext context, String title, String content,
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text(Constants.buttonOk),
-              onPressed: () {
-                Navigator.of(context).pop(); //cierra la alerta
-              },
-            ),
+                child: const Text(Constants.buttonOk),
+                onPressed: () {
+                  Navigator.pop(context);
+                  onPressed();
+                } //cierra la alerta
+                ),
           ],
           elevation: 20,
           shape:
@@ -48,7 +48,7 @@ void showAlertDialog(BuildContext context, String title, String content,
 
 void hideLoadingIndicator(context) => Navigator.pop(context);
 
-void showLoadingIndicator(context, [String? text]) {
+void showLoadingIndicator(context, String? text) {
   showDialog(
     context: context,
     barrierDismissible: false, //impide que el usuario cierre pulsando fuera

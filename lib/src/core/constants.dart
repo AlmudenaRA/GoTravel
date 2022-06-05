@@ -12,6 +12,7 @@ class Constants {
   static const String textFavorite = 'Favoritos';
   static const String textPoint = 'Puntos';
   static const String textLogOut = 'Cerrar sesión';
+  static const String textInfo = 'Información';
 
   //Button
   static const String buttonLogin = 'INICIAR SESIÓN';
@@ -60,6 +61,9 @@ class Constants {
   static const String userNotFound = 'Usuario no encontrado';
   static const String wrongPass = 'Contraseña incorrecta';
   static const String wrongUserOrPass = 'Usuario o contraseña incorrectos';
+  static const String someChange = 'Modifique algún campo';
+  static const String recentLogin = 'Requiere inicio de sesión reciente';
+  static const String emailInUse = 'Email ya en uso';
 
   //Provider
   static const String provider = 'Provider';
@@ -69,6 +73,7 @@ class Constants {
   //Loading
   static const String loadSingUp = 'Registrando';
   static const String loadLogin = 'Iniciando sesión';
+  static const String loadUpdate = 'Modificando usuario';
 
   //BottomAppBar
   static const String bAppBarHome = 'Inicio';

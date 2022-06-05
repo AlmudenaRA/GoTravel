@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/data/share_prefs.dart';
+import 'package:gotravel/src/pages/favorite_page.dart';
 import 'package:gotravel/src/pages/home_page.dart';
 import 'package:gotravel/src/pages/login_page.dart';
+import 'package:gotravel/src/pages/profile_page.dart';
 import 'package:gotravel/src/pages/sing_up_page.dart';
 import 'package:gotravel/src/pages/splash_screen.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
+import 'package:gotravel/src/pages/edit_profile_page.dart';
 
 void main() async {
   //Inicializa Firebase
@@ -49,6 +52,9 @@ class MyApp extends StatelessWidget {
         Constants.routesLogin: (_) => const LoginPage(),
         Constants.routesSingUp: (_) => const SingUpPage(),
         Constants.routesHome: (_) => const MyHomePage(),
+        Constants.routesProfile: (_) => const ProfilePage(),
+        Constants.routesFavorite: (_) => const FavoritePage(),
+        Constants.routesEditProfile: (_) => const EditProfilePage(),
       },
     );
   }

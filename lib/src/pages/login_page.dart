@@ -3,7 +3,7 @@ import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/data/auth_service.dart' as auth_service;
 import 'package:gotravel/src/models/user_model.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
-import 'package:gotravel/src/widget/button_auth.dart';
+import 'package:gotravel/src/widget/button.dart';
 import 'package:gotravel/src/widget/button_text.dart';
 import 'package:gotravel/src/widget/rounded_input_fiel.dart';
 
@@ -49,7 +49,10 @@ class _LoginPageState extends State<LoginPage> {
                 pass: true,
                 onSaved: (val) => users.password = val,
               ),
-              AuthButton(
+              Button(
+                width: 0.9,
+                heigth: 65,
+                color: MyColors.secundary,
                 text: Constants.buttonLogin,
                 onPressed: () => _onPressed(),
               ),

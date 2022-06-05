@@ -13,7 +13,7 @@ Future<void> addUser(UserModel user) async {
 
 //Añadir un usuario de google a firestore.
 Future<void> addUserAuth(FirebaseAuth auth) async {
-  userRef.doc(auth.currentUser?.uid).get().then((doc) => {
+  userRef.doc(auth.currentUser!.uid).get().then((doc) => {
         if (!doc.exists)
           {
             userRef.doc(auth.currentUser!.uid).set({
@@ -30,16 +30,16 @@ Future<void> addUserAuth(FirebaseAuth auth) async {
 
 //Modificar un usuario registrado
 Future<void> updateUser(FirebaseAuth auth, [String? pass]) async {
-  if (pass == null) {
+  if (pass == null || pass.isEmpty) {
     userRef.doc(auth.currentUser!.uid).update({
       Constants.userEmail: auth.currentUser!.email,
-      Constants.userAvatar: auth.currentUser?.photoURL,
+      Constants.userAvatar: auth.currentUser!.photoURL,
       Constants.userUserName: auth.currentUser!.displayName
     });
   } else {
     userRef.doc(auth.currentUser!.uid).update({
       Constants.userEmail: auth.currentUser!.email,
-      Constants.userAvatar: auth.currentUser?.photoURL,
+      Constants.userAvatar: auth.currentUser!.photoURL,
       Constants.userUserName: auth.currentUser!.displayName,
       Constants.userPass: pass,
     });

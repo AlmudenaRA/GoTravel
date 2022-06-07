@@ -2,24 +2,23 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
-import 'package:gotravel/src/widget/button_auth.dart';
-import 'package:gotravel/src/widget/button_text_pop.dart';
+import 'package:gotravel/src/widget/button.dart';
 import 'package:gotravel/src/widget/rounded_input_fiel.dart';
 import 'package:gotravel/src/models/user_model.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:gotravel/src/data/auth_service.dart' as auth_service;
-import 'package:gotravel/src/utils/utils.dart' as utils;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:gotravel/src/utils/utils.dart' as utils;
 
-class SingUp extends StatefulWidget {
-  const SingUp({Key? key}) : super(key: key);
+class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({Key? key}) : super(key: key);
 
   @override
-  State<SingUp> createState() => _SingUpState();
+  State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
-class _SingUpState extends State<SingUp> {
+class _EditProfilePageState extends State<EditProfilePage> {
   File? _pickedFile;
   final ImagePicker _picker = ImagePicker();
   XFile? image;
@@ -44,6 +43,7 @@ class _SingUpState extends State<SingUp> {
                 hintText: Constants.textUserName,
                 icon: Icons.person,
                 onSaved: (val) => users.userName = val,
+                initialValue: _auth.currentUser!.displayName,
               ),
               RoundedInputField(
                 hintText: Constants.textEmail,
@@ -51,30 +51,20 @@ class _SingUpState extends State<SingUp> {
                 email: true,
                 keyboardType: TextInputType.emailAddress,
                 onSaved: (val) => users.email = val,
+                initialValue: _auth.currentUser!.email,
               ),
               RoundedInputField(
                 hintText: Constants.textPass,
                 icon: Icons.lock_outlined,
-                pass: true,
+                updatePass: true,
                 onSaved: (val) => users.password = val,
               ),
-              AuthButton(
-                text: Constants.buttonSingUp,
+              Button(
+                width: 0.9,
+                heigth: 65,
+                color: MyColors.secundary,
+                text: Constants.buttonUpdateProfile,
                 onPressed: () => _onPressed(),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
-                  Text(
-                    Constants.singAccount,
-                    style: TextStyle(color: MyColors.textWhite),
-                  ),
-                  ButtonTextPop(
-                    text: Constants.buttonSingIn,
-                    color: MyColors.secundaryLig,
-                    navigation: Constants.routesLogin,
-                  ),
-                ],
               ),
             ],
           ),
@@ -85,7 +75,7 @@ class _SingUpState extends State<SingUp> {
 
   //Seleccionar una imagen de la galería o cámara, según reciba por parámetro
   _pickImage(ImageSource source) async {
-    image = await _picker.pickImage(source: source);
+    image = await _picker.pickImage(source: source, imageQuality: 10);
     setState(() {
       if (image != null) {
         _pickedFile = File(image!.path);
@@ -106,8 +96,11 @@ class _SingUpState extends State<SingUp> {
             child: CircleAvatar(
               radius: 68,
               backgroundColor: MyColors.background,
-              backgroundImage:
-                  _pickedFile == null ? null : FileImage(_pickedFile!),
+              backgroundImage: _pickedFile != null
+                  ? FileImage(_pickedFile!) as ImageProvider
+                  : _auth.currentUser!.photoURL != null
+                      ? NetworkImage('${_auth.currentUser!.photoURL}')
+                      : const NetworkImage(Constants.defaultImage),
             ),
           ),
         ),
@@ -186,42 +179,56 @@ class _SingUpState extends State<SingUp> {
         });
   }
 
-  _imagenStorage() {
-    firebase_storage.FirebaseStorage.instance
-        .ref("images/user/${_auth.currentUser!.uid}.jpg")
-        .putFile(File(image!.path));
-    // .whenComplete(() => {
-    //       downImage(users).then(
-    //         () => _closeCircAndNav(),
-    //       ),
-    //     });
-  }
-
-  ///Se descarga la url de firebaseStorage
-  downImage(user) async {
-    String url = await firebase_storage.FirebaseStorage.instance
-        .ref("images/user/${_auth.currentUser!.uid}.jpg")
-        .getDownloadURL();
-    user.avatar = url;
-    await _auth.currentUser!.updatePhotoURL(user.avatar);
-  }
-
   _onPressed() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     _formKey.currentState!.save();
 
-    auth_service.createUserWithEmailAndPassword(context, users);
+    updateUser();
+  }
 
-    if (image != null) {
-      _imagenStorage();
-      downImage(users);
+  Future<void> updateUser() async {
+    utils.showLoadingIndicator(context, Constants.loadUpdate);
+    try {
+      if (_auth.currentUser!.displayName != users.userName ||
+          _auth.currentUser!.email != users.email ||
+          users.password!.isNotEmpty) {
+        if (image != null) {
+          imagenStorage();
+        } else {
+          await auth_service.updateProfile(context, users);
+        }
+      } else if (image != null) {
+        imagenStorage();
+      } else {
+        utils.hideLoadingIndicator(context);
+        utils.showAlertDialog(
+            context, Constants.textInfo, Constants.someChange);
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        utils.hideLoadingIndicator(context);
+        utils.showAlertDialog(context, Constants.error, Constants.recentLogin);
+      }
     }
   }
 
-  _closeCircAndNav() {
-    utils.hideLoadingIndicator(context);
-    Navigator.of(context).pushReplacementNamed(Constants.routesLogin);
+  imagenStorage() {
+    firebase_storage.FirebaseStorage.instance
+        .ref("images/user/${_auth.currentUser!.uid}.jpg")
+        .putFile(File(image!.path))
+        .whenComplete(() => {
+              downImageStorage(),
+            });
+  }
+
+  ///Se descarga la url de firebaseStorage
+  downImageStorage() async {
+    String url = await firebase_storage.FirebaseStorage.instance
+        .ref("images/user/${_auth.currentUser!.uid}.jpg")
+        .getDownloadURL();
+    users.avatar = url;
+    await auth_service.updateProfile(context, users);
   }
 }

@@ -9,6 +9,7 @@ class RoundedInputField extends StatefulWidget {
   final TextInputType keyboardType;
   final Function onSaved;
   final bool pass;
+  final bool updatePass;
   final bool email;
   final String? initialValue;
 
@@ -19,6 +20,7 @@ class RoundedInputField extends StatefulWidget {
     this.keyboardType = TextInputType.name,
     required this.onSaved,
     this.pass = false,
+    this.updatePass = false,
     this.email = false,
     this.initialValue,
   }) : super(key: key);
@@ -58,7 +60,7 @@ class _TextFieldFormState extends State<RoundedInputField> {
               borderRadius: BorderRadius.circular(30),
               borderSide: const BorderSide(color: MyColors.pLight),
             ),
-            suffixIcon: widget.pass
+            suffixIcon: widget.pass || widget.updatePass
                 ? Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: IconButton(
@@ -75,10 +77,16 @@ class _TextFieldFormState extends State<RoundedInputField> {
                 : null,
           ),
           cursorColor: MyColors.secundary,
-          obscureText: widget.pass ? _passVisibility : false,
-          onSaved: (val) => widget.onSaved(val),
+          obscureText:
+              widget.pass || widget.updatePass ? _passVisibility : false,
+          onSaved: (val) {
+            if (widget.updatePass) {
+              val != null ? widget.onSaved(val) : null;
+            }
+            widget.onSaved(val);
+          },
           validator: (val) {
-            if (val == null || val.isEmpty) {
+            if (val == null || val.isEmpty && !widget.updatePass) {
               return Constants.strEmpty;
             } else if (widget.email) {
               if (!utils.validEmail(val)) {
@@ -86,6 +94,10 @@ class _TextFieldFormState extends State<RoundedInputField> {
               }
             } else if (widget.pass) {
               if (val.length < 8) {
+                return Constants.errorLenghtPass;
+              }
+            } else if (widget.updatePass) {
+              if (val.isNotEmpty && val.length < 8) {
                 return Constants.errorLenghtPass;
               }
             }

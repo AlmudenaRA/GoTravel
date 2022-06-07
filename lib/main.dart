@@ -12,6 +12,7 @@ import 'package:gotravel/src/pages/sing_up_page.dart';
 import 'package:gotravel/src/pages/splash_screen.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/pages/edit_profile_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   //Inicializa Firebase
@@ -58,6 +59,11 @@ class MyApp extends StatelessWidget {
         Constants.routesEditProfile: (_) => const EditProfilePage(),
         Constants.routesFilter: (_) => const FilterPage(),
       },
+
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: const [
+        Locale('es', 'ES'),
+      ],
     );
   }
 }

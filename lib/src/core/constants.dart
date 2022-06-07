@@ -104,4 +104,8 @@ class Constants {
   //filter
   static const String txtFilter = 'Filtros';
   static const String date = 'Fechas:';
+  static const String selectDate = 'SELECCIONAR FECHAS';
+  static const String txtSelectDate = 'Seleccionar fechas';
+  static const String hintStartDate = 'Fecha entrada';
+  static const String hintEndDate = 'Fecha salida';
 }

@@ -15,7 +15,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _auth = FirebaseAuth.instance;
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
   final List _widgetOptions = [
     const MainPage(),
     const FavoritePage(),

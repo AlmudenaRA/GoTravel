@@ -75,7 +75,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   //Seleccionar una imagen de la galería o cámara, según reciba por parámetro
   _pickImage(ImageSource source) async {
-    image = await _picker.pickImage(source: source);
+    image = await _picker.pickImage(source: source, imageQuality: 10);
     setState(() {
       if (image != null) {
         _pickedFile = File(image!.path);
@@ -196,15 +196,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
           users.password!.isNotEmpty) {
         if (image != null) {
           imagenStorage();
-          downImage(users);
-          _closeCircAndNav();
         } else {
           await auth_service.updateProfile(context, users);
         }
       } else if (image != null) {
         imagenStorage();
-        downImage(users);
-        _closeCircAndNav();
       } else {
         utils.hideLoadingIndicator(context);
         utils.showAlertDialog(
@@ -221,20 +217,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
   imagenStorage() {
     firebase_storage.FirebaseStorage.instance
         .ref("images/user/${_auth.currentUser!.uid}.jpg")
-        .putFile(File(image!.path));
+        .putFile(File(image!.path))
+        .whenComplete(() => {
+              downImageStorage(),
+            });
   }
 
   ///Se descarga la url de firebaseStorage
-  downImage(users) async {
+  downImageStorage() async {
     String url = await firebase_storage.FirebaseStorage.instance
         .ref("images/user/${_auth.currentUser!.uid}.jpg")
         .getDownloadURL();
     users.avatar = url;
-    await _auth.currentUser!.updatePhotoURL(users.avatar);
-  }
-
-  _closeCircAndNav() {
-    utils.hideLoadingIndicator(context);
-    Navigator.of(context).pushReplacementNamed(Constants.routesHome);
+    await auth_service.updateProfile(context, users);
   }
 }

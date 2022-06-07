@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/data/share_prefs.dart';
 import 'package:gotravel/src/pages/favorite_page.dart';
+import 'package:gotravel/src/pages/filter_page.dart';
 import 'package:gotravel/src/pages/home_page.dart';
 import 'package:gotravel/src/pages/login_page.dart';
 import 'package:gotravel/src/pages/profile_page.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         Constants.routesProfile: (_) => const ProfilePage(),
         Constants.routesFavorite: (_) => const FavoritePage(),
         Constants.routesEditProfile: (_) => const EditProfilePage(),
+        Constants.routesFilter: (_) => const FilterPage(),
       },
     );
   }

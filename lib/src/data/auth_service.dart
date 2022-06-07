@@ -43,8 +43,8 @@ logOut(context) async {
 //Registrar usuario
 createUserWithEmailAndPassword(context, UserModel user) async {
   user.password = utils.sha256Password(user.password!);
-  //crea un alertDialog para darle feedback al usuario de que está trabajando internamente
   utils.showLoadingIndicator(context, Constants.loadSingUp);
+
   try {
     UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: user.email!, password: user.password!);
@@ -55,16 +55,15 @@ createUserWithEmailAndPassword(context, UserModel user) async {
 
     await user_provider.addUser(user); //se añade a firestore
 
-    if (user.avatar != null) {
-      await _firebaseAuth.currentUser!.updatePhotoURL(user.avatar);
-    }
+    // if (user.avatar != null) {
+    //   await _firebaseAuth.currentUser!.updatePhotoURL(user.avatar);
+    // }
 
     utils.hideLoadingIndicator(context);
     utils.showAlertDialog(context, Constants.textRegistration,
         Constants.textRegistered, () => Navigator.pop(context));
   } on FirebaseAuthException catch (e) {
-    //error controlado de duplicidad de email
-    if (e.code == Constants.emailRegistered) {
+    if (e.code == 'auth/email-already-exists') {
       _errorAlert(context, Constants.emailRegistered);
     } else {
       _errorAlert(context, e.message);
@@ -89,7 +88,7 @@ singInWithEmailAndPass(context, UserModel user) async {
     }); //added this line
   } on FirebaseAuthException catch (e) {
     //error controlado de email o contraseñas no correctas
-    if (e.code == Constants.userNotFound || e.code == Constants.wrongPass) {
+    if (e.code == 'user-not-found' || e.code == 'wrong-password') {
       _errorAlert(context, Constants.wrongUserOrPass);
     } else {
       _errorAlert(context, e.message);
@@ -101,7 +100,6 @@ singInWithEmailAndPass(context, UserModel user) async {
 
 Future<void> updateProfile(context, UserModel user) async {
   try {
-    //user.id = _firebaseAuth.currentUser!.uid;
     if (user.password!.isNotEmpty) {
       user.password = utils.sha256Password(user.password!);
       _firebaseAuth.currentUser!.updatePassword(user.password!);
@@ -115,18 +113,19 @@ Future<void> updateProfile(context, UserModel user) async {
     if (_firebaseAuth.currentUser!.displayName != user.userName) {
       await _firebaseAuth.currentUser!.updateDisplayName(user.userName);
     }
-
-    _closeCircAndNav(context, user);
+    user_provider.updateUser(
+        _firebaseAuth, user.password!.isNotEmpty ? user.password : null);
+    _closeLoadingAndNav(context, user);
   } on FirebaseAuthException catch (e) {
-    if (e.code == Constants.recentLogin) {
+    if (e.code == 'auth/id-token-expired') {
       _errorAlert(context, Constants.recentLogin);
-    } else if (e.code == Constants.emailInUse) {
+    } else if (e.code == 'auth/email-already-exists') {
       _errorAlert(context, Constants.emailInUse);
     } else {
       _errorAlert(context, e.code);
     }
   } catch (ex) {
-    _errorAlert(context, ex.toString());
+    _errorAlert(context, ex);
   }
 }
 
@@ -135,9 +134,7 @@ _errorAlert(context, val) {
   utils.showAlertDialog(context, Constants.error, val);
 }
 
-_closeCircAndNav(context, user) {
-  user_provider.updateUser(
-      _firebaseAuth, user.password!.isNotEmpty ? user.pass : null);
+_closeLoadingAndNav(context, user) {
   utils.hideLoadingIndicator(context);
   Navigator.of(context).pushReplacementNamed(Constants.routesHome);
 }

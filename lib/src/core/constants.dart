@@ -13,6 +13,8 @@ class Constants {
   static const String textPoint = 'Puntos';
   static const String textLogOut = 'Cerrar sesión';
   static const String textInfo = 'Información';
+  static const String textFilter = 'Filtrar por...';
+  static const String textOrder = 'Ordenar por...';
 
   //Button
   static const String buttonLogin = 'INICIAR SESIÓN';
@@ -37,6 +39,7 @@ class Constants {
   static const String routesFavorite = 'favorite';
   static const String routesProfile = 'profile';
   static const String routesEditProfile = 'edit_profile';
+  static const String routesFilter = 'filter';
 
   //Sing up
   static const String singAccount = "¿Ya tiene cuenta? ";
@@ -89,4 +92,16 @@ class Constants {
   static const String point = 'Puntos: ';
   static const String discount = 'Descuento: ';
   static const String code = 'Código: ';
+
+  //tooltip
+  static const String tooltipFilter = 'Filtrar';
+  static const String tooltipOrderBy = 'Orden ';
+
+  //order_by
+  static const String orderPrice = 'Precio';
+  static const String orderAssessment = 'Valoración ';
+
+  //filter
+  static const String txtFilter = 'Filtros';
+  static const String date = 'Fechas:';
 }

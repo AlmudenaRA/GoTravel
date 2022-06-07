@@ -8,6 +8,7 @@ import 'package:gotravel/src/pages/filter_page.dart';
 import 'package:gotravel/src/pages/home_page.dart';
 import 'package:gotravel/src/pages/login_page.dart';
 import 'package:gotravel/src/pages/profile_page.dart';
+import 'package:gotravel/src/pages/room_page.dart';
 import 'package:gotravel/src/pages/sing_up_page.dart';
 import 'package:gotravel/src/pages/splash_screen.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         Constants.routesFavorite: (_) => const FavoritePage(),
         Constants.routesEditProfile: (_) => const EditProfilePage(),
         Constants.routesFilter: (_) => const FilterPage(),
+        Constants.routesRoom: (_) => const RoomsPage(),
       },
 
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/widget/button.dart';
-import 'package:gotravel/src/widget/text_point.dart';
+import 'package:gotravel/src/widget/text_data.dart';
 
 void showDialogPoint(BuildContext context) {
   showDialog(
@@ -15,45 +15,57 @@ void showDialogPoint(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              TextPoints(
+              TextData(
                 padding: EdgeInsets.only(left: 25),
                 color: MyColors.textWhite,
-                texto: Constants.point,
+                text: Constants.point,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
-              TextPoints(
+              TextData(
                 padding: EdgeInsets.only(right: 25),
                 color: MyColors.secundary,
-                texto: Constants.point,
+                text: Constants.point,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              TextPoints(
+              TextData(
                 padding: EdgeInsets.only(left: 25),
                 color: MyColors.textWhite,
-                texto: Constants.discount,
+                text: Constants.discount,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
-              TextPoints(
+              TextData(
                 padding: EdgeInsets.only(right: 25),
                 color: MyColors.secundary,
-                texto: Constants.point,
+                text: Constants.point,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              TextPoints(
+              TextData(
                 padding: EdgeInsets.only(left: 25),
                 color: MyColors.textWhite,
-                texto: Constants.code,
+                text: Constants.code,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
-              TextPoints(
+              TextData(
                 padding: EdgeInsets.only(right: 25),
                 color: MyColors.secundary,
-                texto: Constants.point,
+                text: Constants.point,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ],
           ),

@@ -25,6 +25,8 @@ class Constants {
   static const String buttonUpdateProfile = 'MODIFICAR';
   static const String buttonApply = 'APLICAR';
   static const String buttonCancel = 'CANCELAR';
+  static const String selectDate = 'SELECCIONAR FECHAS';
+  static const String selectRoom = 'SELECCIONAR HABITACIONES';
 
   //Login
   static const String textCuenta = "¿No tiene cuenta? ";
@@ -40,6 +42,7 @@ class Constants {
   static const String routesProfile = 'profile';
   static const String routesEditProfile = 'edit_profile';
   static const String routesFilter = 'filter';
+  static const String routesRoom = 'room';
 
   //Sing up
   static const String singAccount = "¿Ya tiene cuenta? ";
@@ -103,9 +106,15 @@ class Constants {
 
   //filter
   static const String txtFilter = 'Filtros';
-  static const String date = 'Fechas:';
-  static const String selectDate = 'SELECCIONAR FECHAS';
+  static const String filterDate = 'Fechas:';
   static const String txtSelectDate = 'Seleccionar fechas';
   static const String hintStartDate = 'Fecha entrada';
   static const String hintEndDate = 'Fecha salida';
+  static const String filterRoom = 'Nº habitaciones:';
+
+  //room
+  static const String rooms = 'Habitaciones: ';
+  static const String adult = 'Adultos: ';
+  static const String children = 'Niños: ';
+  static const String room = 'Habitación ';
 }

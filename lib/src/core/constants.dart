@@ -111,6 +111,7 @@ class Constants {
   static const String hintStartDate = 'Fecha entrada';
   static const String hintEndDate = 'Fecha salida';
   static const String filterRoom = 'Nº habitaciones:';
+  static const String priceNight = 'Precio por noche:';
 
   //room
   static const String rooms = 'Habitaciones: ';

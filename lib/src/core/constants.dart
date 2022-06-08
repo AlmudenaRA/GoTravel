@@ -121,4 +121,39 @@ class Constants {
   static const String adult = 'Adultos: ';
   static const String children = 'Niños: ';
   static const String room = 'Habitación ';
+
+  //hotel
+  static const String hotelId = 'idHotel';
+  static const String hotelDescription = 'description';
+  static const String hotelName = 'hotelName';
+  static const String hotelLocation = 'location';
+  static const String hotelStar = 'star';
+  static const String hotelPhoto = 'photo';
+  static const String hotelService = 'service';
+  static const String hotelReview = 'review';
+
+  //review
+  static const String reviewId = 'idReview';
+  static const String reviewIdHotel = 'idHotel';
+  static const String reviewIdUser = 'idUser';
+  static const String reviewScore = 'score';
+  static const String reviewComment = 'comment';
+
+  //offer
+  static const String offerId = 'idOffert';
+  static const String offerIdHotel = 'idHotel';
+  static const String offerDestiny = 'destiny';
+  static const String offerWebsite = 'website';
+  static const String offerPriceNight = 'priceNight';
+  static const String offerPriceFinal = 'priceFinal';
+  static const String offerDateStart = 'dateStart';
+  static const String offerDateEnd = 'dateEnd';
+  static const String offerPerson = 'person';
+  static const String offerRoom = 'room';
+
+  //favorite
+  static const String favId = 'idFav';
+  static const String favIdHotel = 'idHotel';
+  static const String favIdUser = 'idUser';
+  static const String favLocation = 'location';
 }

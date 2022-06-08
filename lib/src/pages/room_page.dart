@@ -25,8 +25,7 @@ class _RoomsPageState extends State<RoomsPage> {
         child: Container(
           margin: const EdgeInsets.only(left: 15, top: 20),
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,

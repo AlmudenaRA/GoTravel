@@ -27,6 +27,7 @@ class Constants {
   static const String buttonCancel = 'CANCELAR';
   static const String selectDate = 'SELECCIONAR FECHAS';
   static const String selectRoom = 'SELECCIONAR HABITACIONES';
+  static const String btnFilter = 'FILTRAR';
 
   //Login
   static const String textCuenta = "¿No tiene cuenta? ";
@@ -112,6 +113,8 @@ class Constants {
   static const String hintEndDate = 'Fecha salida';
   static const String filterRoom = 'Nº habitaciones:';
   static const String priceNight = 'Precio por noche:';
+  static const String hotelCateg = 'Categoría del hotel:';
+  static const String assessment = 'Valoración:';
 
   //room
   static const String rooms = 'Habitaciones: ';

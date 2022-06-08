@@ -5,12 +5,14 @@ class RoundedButton extends StatelessWidget {
   final IconData icon;
   final bool plus;
   final bool minus;
+  final String? text;
 
   const RoundedButton({
     Key? key,
     this.plus = false,
     this.minus = false,
     required this.icon,
+    this.text,
   }) : super(key: key);
 
   @override

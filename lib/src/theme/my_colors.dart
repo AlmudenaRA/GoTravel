@@ -7,5 +7,5 @@ class MyColors {
   static const Color textWhite = Colors.white54;
   static const Color textButton = Colors.white;
   static const Color secundaryLig = Color(0xFFab47bc);
-  static const Color red = Colors.red;
+  static const Color red = Color(0xFF7f0000);
 }

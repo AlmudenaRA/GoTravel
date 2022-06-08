@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/widget/button.dart';
+import 'package:gotravel/src/widget/button_star.dart';
 import 'package:gotravel/src/widget/text_data.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -14,7 +15,8 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
-  double _value = 10;
+  double _valuePrice = 10;
+  double _valueAssessment = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,19 +36,18 @@ class _FilterPageState extends State<FilterPage> {
                 color: MyColors.textWhite,
                 fontSize: 15,
               ),
-              _dateFilter(context),
-              const Divider(
-                height: 10,
-                color: MyColors.textWhite,
-                thickness: 1,
-              ),
               const SizedBox(
                 height: 20,
               ),
+              _dateFilter(context),
+              _space(),
               const TextData(
                 text: Constants.filterRoom,
                 color: MyColors.textWhite,
                 fontSize: 15,
+              ),
+              const SizedBox(
+                height: 20,
               ),
               Button(
                   width: 0.9,
@@ -55,20 +56,50 @@ class _FilterPageState extends State<FilterPage> {
                   text: Constants.selectRoom,
                   onPressed: () =>
                       Navigator.pushNamed(context, Constants.routesRoom)),
-              const Divider(
-                height: 10,
-                color: MyColors.textWhite,
-                thickness: 1,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+              _space(),
               const TextData(
                 text: Constants.priceNight,
                 color: MyColors.textWhite,
                 fontSize: 15,
               ),
-              _slider(_value, 10, 500, 100.0, ' €'),
+              _sliderPrice(),
+              _space(),
+              const TextData(
+                text: Constants.hotelCateg,
+                color: MyColors.textWhite,
+                fontSize: 15,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              _starHotel(),
+              _space(),
+              const TextData(
+                text: Constants.assessment,
+                color: MyColors.textWhite,
+                fontSize: 15,
+              ),
+              _sliderAssessment(),
+              _space(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Button(
+                    width: 0.45,
+                    heigth: 50,
+                    color: MyColors.red,
+                    text: Constants.buttonCancel,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  Button(
+                    width: 0.45,
+                    heigth: 50,
+                    color: MyColors.secundary,
+                    text: Constants.btnFilter,
+                    onPressed: () => _onPressed(),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -76,7 +107,53 @@ class _FilterPageState extends State<FilterPage> {
     );
   }
 
-  _slider(value, min, max, interval, label) {
+  _space() {
+    return Column(
+      children: const [
+        SizedBox(
+          height: 20,
+        ),
+        Divider(
+          height: 10,
+          color: MyColors.textWhite,
+          thickness: 1,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+      ],
+    );
+  }
+
+  _starHotel() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        ButtonStar(text: '1'),
+        SizedBox(
+          width: 20,
+        ),
+        ButtonStar(text: '2'),
+        SizedBox(
+          width: 20,
+        ),
+        ButtonStar(text: '3'),
+        SizedBox(
+          width: 20,
+        ),
+        ButtonStar(text: '4'),
+        SizedBox(
+          width: 20,
+        ),
+        ButtonStar(text: '5'),
+        SizedBox(
+          width: 20,
+        ),
+      ],
+    );
+  }
+
+  _sliderPrice() {
     return SfSliderTheme(
       data: SfSliderThemeData(
         thumbColor: MyColors.secundary,
@@ -91,18 +168,51 @@ class _FilterPageState extends State<FilterPage> {
         ),
       ),
       child: SfSlider(
-        value: value,
-        min: min,
-        max: max,
+        value: _valuePrice,
+        min: 10,
+        max: 500,
         showLabels: true,
         labelPlacement: LabelPlacement.onTicks,
-        interval: interval,
+        interval: 100.0,
         labelFormatterCallback: (dynamic actualValue, String formattedText) {
-          return ' $formattedText' + label;
+          return ' $formattedText €';
         },
         onChanged: (dynamic newValues) {
           setState(() {
-            _value = newValues;
+            _valuePrice = newValues;
+          });
+        },
+      ),
+    );
+  }
+
+  _sliderAssessment() {
+    return SfSliderTheme(
+      data: SfSliderThemeData(
+        thumbColor: MyColors.secundary,
+        activeTrackColor: MyColors.secundary,
+        thumbRadius: 10,
+        inactiveTrackColor: MyColors.secundaryLig,
+        activeLabelStyle:
+            const TextStyle(color: MyColors.textWhite, fontSize: 12),
+        inactiveLabelStyle: const TextStyle(
+          color: MyColors.textWhite,
+          fontSize: 12,
+        ),
+      ),
+      child: SfSlider(
+        value: _valueAssessment,
+        min: 0,
+        max: 10,
+        showLabels: true,
+        labelPlacement: LabelPlacement.onTicks,
+        interval: 2.5,
+        labelFormatterCallback: (dynamic actualValue, String formattedText) {
+          return ' $formattedText';
+        },
+        onChanged: (dynamic newValues) {
+          setState(() {
+            _valueAssessment = newValues;
           });
         },
       ),
@@ -135,4 +245,6 @@ class _FilterPageState extends State<FilterPage> {
               child: child!)),
     );
   }
+
+  _onPressed() {}
 }

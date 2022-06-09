@@ -21,6 +21,7 @@ class TextData extends StatelessWidget {
       padding: padding,
       child: Text(
         text,
+        textAlign: TextAlign.justify,
         style: TextStyle(
           fontSize: fontSize,
           fontWeight: fontWeight,

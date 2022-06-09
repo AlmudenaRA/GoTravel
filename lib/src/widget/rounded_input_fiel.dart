@@ -77,7 +77,8 @@ class _TextFieldFormState extends State<RoundedInputField> {
                 : null,
           ),
           cursorColor: MyColors.secundary,
-          obscureText: widget.pass ? _passVisibility : false,
+          obscureText:
+              widget.pass || widget.updatePass ? _passVisibility : false,
           onSaved: (val) {
             if (widget.updatePass) {
               val != null ? widget.onSaved(val) : null;

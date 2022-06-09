@@ -88,7 +88,7 @@ class _SingUpPageState extends State<SingUpPage> {
 
   //Seleccionar una imagen de la galería o cámara, según reciba por parámetro
   _pickImage(ImageSource source) async {
-    image = await _picker.pickImage(source: source);
+    image = await _picker.pickImage(source: source, imageQuality: 10);
     setState(() {
       if (image != null) {
         _pickedFile = File(image!.path);
@@ -190,19 +190,22 @@ class _SingUpPageState extends State<SingUpPage> {
         });
   }
 
-  _imagenStorage() {
+  imagenStorage() {
     firebase_storage.FirebaseStorage.instance
         .ref("images/user/${_auth.currentUser!.uid}.jpg")
-        .putFile(File(image!.path));
+        .putFile(File(image!.path))
+        .whenComplete(() => {
+              downImageStorage(),
+            });
   }
 
   ///Se descarga la url de firebaseStorage
-  downImage(users) async {
+  downImageStorage() async {
     String url = await firebase_storage.FirebaseStorage.instance
         .ref("images/user/${_auth.currentUser!.uid}.jpg")
         .getDownloadURL();
     users.avatar = url;
-    await _auth.currentUser!.updatePhotoURL(users.avatar);
+    await auth_service.updateProfile(context, users);
   }
 
   _onPressed() async {
@@ -211,13 +214,14 @@ class _SingUpPageState extends State<SingUpPage> {
     }
     _formKey.currentState!.save();
 
-    auth_service.createUserWithEmailAndPassword(context, users);
+    await auth_service.createUserWithEmailAndPassword(context, users);
 
     if (image != null) {
-      _imagenStorage();
-      downImage(users);
+      imagenStorage();
       _closeCircAndNav();
     }
+
+    _closeCircAndNav();
   }
 
   _closeCircAndNav() {

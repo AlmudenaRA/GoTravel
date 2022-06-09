@@ -13,6 +13,8 @@ class Constants {
   static const String textPoint = 'Puntos';
   static const String textLogOut = 'Cerrar sesión';
   static const String textInfo = 'Información';
+  static const String textFilter = 'Filtrar por...';
+  static const String textOrder = 'Ordenar por...';
 
   //Button
   static const String buttonLogin = 'INICIAR SESIÓN';
@@ -23,6 +25,11 @@ class Constants {
   static const String buttonUpdateProfile = 'MODIFICAR';
   static const String buttonApply = 'APLICAR';
   static const String buttonCancel = 'CANCELAR';
+  static const String selectDate = 'SELECCIONAR FECHAS';
+  static const String selectRoom = 'SELECCIONAR HABITACIONES';
+  static const String btnFilter = 'FILTRAR';
+  static const String btnOffer = 'OFERTA';
+  static const String btnOtherOffer = 'OTRAS OFERTAS';
 
   //Login
   static const String textCuenta = "¿No tiene cuenta? ";
@@ -37,6 +44,8 @@ class Constants {
   static const String routesFavorite = 'favorite';
   static const String routesProfile = 'profile';
   static const String routesEditProfile = 'edit_profile';
+  static const String routesFilter = 'filter';
+  static const String routesRoom = 'room';
 
   //Sing up
   static const String singAccount = "¿Ya tiene cuenta? ";
@@ -89,4 +98,66 @@ class Constants {
   static const String point = 'Puntos: ';
   static const String discount = 'Descuento: ';
   static const String code = 'Código: ';
+
+  //tooltip
+  static const String tooltipFilter = 'Filtrar';
+  static const String tooltipOrderBy = 'Orden ';
+
+  //order_by
+  static const String orderPrice = 'Precio';
+  static const String orderAssessment = 'Valoración ';
+
+  //filter
+  static const String txtFilter = 'Filtros';
+  static const String filterDate = 'Fechas:';
+  static const String txtSelectDate = 'Seleccionar fechas';
+  static const String hintStartDate = 'Fecha entrada';
+  static const String hintEndDate = 'Fecha salida';
+  static const String filterRoom = 'Nº habitaciones:';
+  static const String priceNight = 'Precio por noche:';
+  static const String hotelCateg = 'Categoría del hotel:';
+  static const String assessment = 'Valoración:';
+
+  //room
+  static const String rooms = 'Habitaciones: ';
+  static const String adult = 'Adultos: ';
+  static const String children = 'Niños: ';
+  static const String room = 'Habitación ';
+
+  //hotel
+  static const String hotelId = 'idHotel';
+  static const String hotelDescription = 'description';
+  static const String hotelName = 'hotelName';
+  static const String hotelLocation = 'location';
+  static const String hotelStar = 'star';
+  static const String hotelPhoto = 'photo';
+  static const String hotelService = 'service';
+  static const String hotelReview = 'review';
+  static const String collectionHotel = 'hotel';
+
+  //review
+  static const String reviewId = 'idReview';
+  static const String reviewIdHotel = 'idHotel';
+  static const String reviewIdUser = 'idUser';
+  static const String reviewScore = 'score';
+  static const String reviewComment = 'comment';
+
+  //offer
+  static const String offerId = 'idOffert';
+  static const String offerIdHotel = 'idHotel';
+  static const String offerDestiny = 'destiny';
+  static const String offerWebsite = 'website';
+  static const String offerPriceNight = 'priceNight';
+  static const String offerPriceFinal = 'priceFinal';
+  static const String offerDateStart = 'dateStart';
+  static const String offerDateEnd = 'dateEnd';
+  static const String offerPerson = 'person';
+  static const String offerRoom = 'room';
+  static const String offerListHotel = 'listHotel';
+
+  //favorite
+  static const String favId = 'idFav';
+  static const String favIdHotel = 'idHotel';
+  static const String favIdUser = 'idUser';
+  static const String favLocation = 'location';
 }

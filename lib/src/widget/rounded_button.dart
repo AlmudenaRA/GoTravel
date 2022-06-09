@@ -2,39 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 
 class RoundedButton extends StatelessWidget {
-  final String text;
-  final String navigation;
-  final Color color;
-  final Color textColor;
+  final IconData icon;
+  final bool plus;
+  final bool minus;
+  final String? text;
 
   const RoundedButton({
     Key? key,
-    required this.text,
-    this.color = MyColors.secundary,
-    this.textColor = MyColors.textButton,
-    required this.navigation,
+    this.plus = false,
+    this.minus = false,
+    required this.icon,
+    this.text,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      width: size.width * 0.9,
-      height: 65,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(29),
-        child: TextButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(color),
-            foregroundColor: MaterialStateProperty.all<Color>(textColor),
+    return SizedBox(
+      height: 30,
+      width: 30,
+      child: ClipOval(
+        child: Material(
+          color: MyColors.secundary,
+          child: InkWell(
+            splashColor: MyColors.secundaryLig,
+            onTap: () {},
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Icon(icon, color: MyColors.textButton),
+              ],
+            ),
           ),
-          onPressed: () {
-            Navigator.pushNamed(context, navigation);
-          },
-          child: Text(text),
         ),
       ),
     );

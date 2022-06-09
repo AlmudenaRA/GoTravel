@@ -4,7 +4,7 @@ class ReviewModel {
   String? idReview;
   String? idHotel;
   String? idUser;
-  int? score;
+  double? score;
   String? comment;
 
   ReviewModel(

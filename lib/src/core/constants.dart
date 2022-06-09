@@ -28,6 +28,8 @@ class Constants {
   static const String selectDate = 'SELECCIONAR FECHAS';
   static const String selectRoom = 'SELECCIONAR HABITACIONES';
   static const String btnFilter = 'FILTRAR';
+  static const String btnOffer = 'OFERTA';
+  static const String btnOtherOffer = 'OTRAS OFERTAS';
 
   //Login
   static const String textCuenta = "¿No tiene cuenta? ";
@@ -131,6 +133,7 @@ class Constants {
   static const String hotelPhoto = 'photo';
   static const String hotelService = 'service';
   static const String hotelReview = 'review';
+  static const String collectionHotel = 'hotel';
 
   //review
   static const String reviewId = 'idReview';
@@ -150,6 +153,7 @@ class Constants {
   static const String offerDateEnd = 'dateEnd';
   static const String offerPerson = 'person';
   static const String offerRoom = 'room';
+  static const String offerListHotel = 'listHotel';
 
   //favorite
   static const String favId = 'idFav';

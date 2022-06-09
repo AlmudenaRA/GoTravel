@@ -27,11 +27,9 @@ class Constants {
   static const String buttonCancel = 'CANCELAR';
   static const String selectDate = 'SELECCIONAR FECHAS';
   static const String selectRoom = 'SELECCIONAR HABITACIONES';
-
-  //Login
-  static const String textCuenta = "¿No tiene cuenta? ";
-  static const String textOr = 'o';
-  static const String textSingIn = 'Inicie sesión con';
+  static const String btnFilter = 'FILTRAR';
+  static const String btnOffer = 'OFERTA';
+  static const String btnOtherOffer = 'OTRAS OFERTAS';
 
   //Routes
   static const String routesSplash = 'splash_screen';
@@ -43,12 +41,21 @@ class Constants {
   static const String routesEditProfile = 'edit_profile';
   static const String routesFilter = 'filter';
   static const String routesRoom = 'room';
+  static const String routesDetailHotel = 'detailHotel';
+
+  //Collection
+  static const String collectionUser = 'users';
+  static const String collectionHotel = 'hotel';
+  static const String collectionOffer = 'offer';
+  static const String collectionReview = 'review';
+
+  //Login
+  static const String textCuenta = "¿No tiene cuenta? ";
+  static const String textOr = 'o';
+  static const String textSingIn = 'Inicie sesión con';
 
   //Sing up
   static const String singAccount = "¿Ya tiene cuenta? ";
-
-  //Firebase
-  static const String userColl = 'users';
 
   //User
   static const String userId = 'id';
@@ -111,10 +118,57 @@ class Constants {
   static const String hintStartDate = 'Fecha entrada';
   static const String hintEndDate = 'Fecha salida';
   static const String filterRoom = 'Nº habitaciones:';
+  static const String priceNight = 'Precio por noche:';
+  static const String hotelCateg = 'Categoría del hotel:';
+  static const String assessment = 'Valoración:';
 
   //room
   static const String rooms = 'Habitaciones: ';
   static const String adult = 'Adultos: ';
   static const String children = 'Niños: ';
   static const String room = 'Habitación ';
+
+  //hotel
+  static const String hotelId = 'idHotel';
+  static const String hotelDescription = 'description';
+  static const String hotelName = 'hotelName';
+  static const String hotelLocation = 'location';
+  static const String hotelStar = 'star';
+  static const String hotelPhoto = 'photo';
+  static const String hotelService = 'service';
+  static const String hotelReview = 'review';
+
+  //review
+  static const String reviewId = 'idReview';
+  static const String reviewIdHotel = 'idHotel';
+  static const String reviewIdUser = 'idUser';
+  static const String reviewScore = 'score';
+  static const String reviewComment = 'comment';
+
+  //offer
+  static const String offerId = 'idOffert';
+  static const String offerIdHotel = 'idHotel';
+  static const String offerDestiny = 'destiny';
+  static const String offerWebsite = 'website';
+  static const String offerPriceNight = 'priceNight';
+  static const String offerPriceFinal = 'priceFinal';
+  static const String offerDateStart = 'dateStart';
+  static const String offerDateEnd = 'dateEnd';
+  static const String offerPerson = 'person';
+  static const String offerRoom = 'room';
+  static const String offerListHotel = 'listHotel';
+
+  //favorite
+  static const String favId = 'idFav';
+  static const String favIdHotel = 'idHotel';
+  static const String favIdUser = 'idUser';
+  static const String favLocation = 'location';
+
+  //Details
+  static const String detDescription = 'Descripción:';
+  static const String detReview = 'Reseñas:';
+  static const String description =
+      'El Hostal Castilla está situado entre las estaciones de metro de Alonso Martínez y Colón y ofrece habitaciones con calefacción, balcón y vistas a la ciudad. El establecimiento se encuentra a 15 minutos a pie del famoso parque del Retiro. Las habitaciones presentan una decoración sencilla y cuentan con camas individuales, armario y TV. Algunas habitaciones tienen baño privado con bañera. Se proporcionan toallas y ropa de cama. El Hostal Castilla alberga una cocina compartida donde se sirve el desayuno todas las mañanas. Incluye microondas, cafetera y nevera. La animada Puerta del Sol está bien comunicada con el centro de Madrid y se encuentra a 10 minutos en transporte público. El Museo de Arte Thyssen-Bornemisza está a 1 km y la moderna Gran Vía, a 10 minutos a pie. Hay conexión Wi-Fi gratuita en las zonas comunes.';
+  static const String urlHotel =
+      'https://www.agoda.com/es-es/hostal-castilla/hotel/all/madrid-es.html?finalPriceView=2&isShowMobileAppPrice=false&cid=1763310&numberOfBedrooms=&familyMode=false&adults=2&children=0&rooms=1&maxRooms=0&checkIn=2022-06-21&isCalendarCallout=false&childAges=&numberOfGuest=0&missingChildAges=false&travellerType=-1&showReviewSubmissionEntry=false&currencyCode=EUR&isFreeOccSearch=false&tag=a50a5925-ed0f-4f5c-bd67-afc4a3f7b11b&flexibleDateSearchCriteria=[object%20Object]&isCityHaveAsq=false&los=1&searchrequestid=facae72b-92f7-47e4-a584-07dd55ce0889';
 }

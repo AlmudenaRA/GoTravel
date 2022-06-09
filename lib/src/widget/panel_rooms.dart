@@ -17,7 +17,7 @@ class PanelRooms extends StatelessWidget {
         margin: 20,
         paddingVert: 5,
         paddingHoriz: 20,
-        width: 0.8,
+        width: 0.7,
         height: 150,
         child: Column(
           children: [
@@ -32,7 +32,7 @@ class PanelRooms extends StatelessWidget {
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
                 TextData(
                   text: Constants.adult,
@@ -47,7 +47,7 @@ class PanelRooms extends StatelessWidget {
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
                 TextData(
                   text: Constants.children,

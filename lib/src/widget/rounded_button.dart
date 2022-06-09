@@ -5,12 +5,16 @@ class RoundedButton extends StatelessWidget {
   final IconData icon;
   final bool plus;
   final bool minus;
+  final String? text;
+  final Function? onTap;
 
   const RoundedButton({
     Key? key,
     this.plus = false,
     this.minus = false,
     required this.icon,
+    this.text,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -23,7 +27,7 @@ class RoundedButton extends StatelessWidget {
           color: MyColors.secundary,
           child: InkWell(
             splashColor: MyColors.secundaryLig,
-            onTap: () {},
+            onTap: () => onTap!(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

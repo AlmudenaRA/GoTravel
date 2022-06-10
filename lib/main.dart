@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/data/share_prefs.dart';
+import 'package:gotravel/src/pages/details_hotel_page.dart';
 import 'package:gotravel/src/pages/favorite_page.dart';
 import 'package:gotravel/src/pages/filter_page.dart';
 import 'package:gotravel/src/pages/home_page.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         Constants.routesEditProfile: (_) => const EditProfilePage(),
         Constants.routesFilter: (_) => const FilterPage(),
         Constants.routesRoom: (_) => const RoomsPage(),
+        Constants.routesDetailHotel: (_) => const DetailHotel(),
       },
 
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

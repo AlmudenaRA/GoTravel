@@ -4,7 +4,7 @@ import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/models/user_model.dart';
 
 CollectionReference userRef =
-    FirebaseFirestore.instance.collection(Constants.userColl);
+    FirebaseFirestore.instance.collection(Constants.collectionUser);
 
 //Añadir usuario a firestore.
 Future<void> addUser(UserModel user) async {

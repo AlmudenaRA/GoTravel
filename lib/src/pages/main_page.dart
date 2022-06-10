@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
-import 'package:gotravel/src/widget/list_hotel.dart';
+import 'package:gotravel/src/pages/list_hotel.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);

@@ -5,6 +5,7 @@ import 'package:gotravel/src/widget/button_text.dart';
 import 'package:gotravel/src/widget/button_text_icon.dart';
 import 'package:gotravel/src/widget/text_data.dart';
 import 'package:gotravel/src/core/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CardHotel extends StatelessWidget {
   //final HotelModel hotelModel;
@@ -18,7 +19,9 @@ class CardHotel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, Constants.routesDetailHotel);
+        },
         child: Card(
           margin: const EdgeInsets.all(20),
           elevation: 50,
@@ -26,20 +29,14 @@ class CardHotel extends StatelessWidget {
           color: MyColors.pLight,
           child: Column(
             children: [
-              Container(
-                height: 144,
-                width: 400,
-                color: MyColors.pDark,
-                child: const Icon(
-                  Icons.abc,
-                  color: MyColors.textWhite,
-                ),
-                //TODO child: Image.asset(
-                //   hotelModel.photo![0],
-                //   height: 144,
-                //   width: 400,
-                // ),
-              ),
+              Image.network(
+                  "https://www.nationalgeographic.com.es/medio/2018/02/27/playa-de-isuntza-lekeitio__1280x720.jpg"),
+              //TODO child: Image.asset(
+              //   hotelModel.photo![0],
+              //   height: 144,
+              //   width: 400,
+              // ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -135,10 +132,10 @@ class CardHotel extends StatelessWidget {
                         )
                       ],
                     ),
-                    const ButtonTextIcon(
+                    ButtonTextIcon(
                       text: Constants.btnOffer,
                       color: MyColors.textButton,
-                      navigation: Constants.routesProfile,
+                      onPressed: _onPressed,
                     ),
                   ],
                 ),
@@ -183,5 +180,10 @@ class CardHotel extends StatelessWidget {
       color: MyColors.textWhite,
       size: 15,
     );
+  }
+
+  _onPressed() async {
+    final Uri _url = Uri.parse(Constants.urlHotel);
+    if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 }

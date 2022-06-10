@@ -31,11 +31,6 @@ class Constants {
   static const String btnOffer = 'OFERTA';
   static const String btnOtherOffer = 'OTRAS OFERTAS';
 
-  //Login
-  static const String textCuenta = "¿No tiene cuenta? ";
-  static const String textOr = 'o';
-  static const String textSingIn = 'Inicie sesión con';
-
   //Routes
   static const String routesSplash = 'splash_screen';
   static const String routesLogin = 'login';
@@ -46,12 +41,21 @@ class Constants {
   static const String routesEditProfile = 'edit_profile';
   static const String routesFilter = 'filter';
   static const String routesRoom = 'room';
+  static const String routesDetailHotel = 'detailHotel';
+
+  //Collection
+  static const String collectionUser = 'users';
+  static const String collectionHotel = 'hotel';
+  static const String collectionOffer = 'offer';
+  static const String collectionReview = 'review';
+
+  //Login
+  static const String textCuenta = "¿No tiene cuenta? ";
+  static const String textOr = 'o';
+  static const String textSingIn = 'Inicie sesión con';
 
   //Sing up
   static const String singAccount = "¿Ya tiene cuenta? ";
-
-  //Firebase
-  static const String userColl = 'users';
 
   //User
   static const String userId = 'id';
@@ -82,9 +86,10 @@ class Constants {
   static const String provEmail = 'Email';
 
   //Loading
-  static const String loadSingUp = 'Registrando';
-  static const String loadLogin = 'Iniciando sesión';
-  static const String loadUpdate = 'Modificando usuario';
+  static const String load = 'Cargando..';
+  static const String loadSingUp = 'Registrando usuario, por favor espere';
+  static const String loadLogin = 'Iniciando sesión de forma segura';
+  static const String loadUpdate = 'Modificando usuario, por favor espere';
 
   //BottomAppBar
   static const String bAppBarHome = 'Inicio';
@@ -133,7 +138,6 @@ class Constants {
   static const String hotelPhoto = 'photo';
   static const String hotelService = 'service';
   static const String hotelReview = 'review';
-  static const String collectionHotel = 'hotel';
 
   //review
   static const String reviewId = 'idReview';
@@ -160,4 +164,12 @@ class Constants {
   static const String favIdHotel = 'idHotel';
   static const String favIdUser = 'idUser';
   static const String favLocation = 'location';
+
+  //Details
+  static const String detDescription = 'Descripción:';
+  static const String detReview = 'Reseñas:';
+  static const String description =
+      'El Hostal Castilla está situado entre las estaciones de metro de Alonso Martínez y Colón y ofrece habitaciones con calefacción, balcón y vistas a la ciudad. El establecimiento se encuentra a 15 minutos a pie del famoso parque del Retiro. Las habitaciones presentan una decoración sencilla y cuentan con camas individuales, armario y TV. Algunas habitaciones tienen baño privado con bañera. Se proporcionan toallas y ropa de cama. El Hostal Castilla alberga una cocina compartida donde se sirve el desayuno todas las mañanas. Incluye microondas, cafetera y nevera. La animada Puerta del Sol está bien comunicada con el centro de Madrid y se encuentra a 10 minutos en transporte público. El Museo de Arte Thyssen-Bornemisza está a 1 km y la moderna Gran Vía, a 10 minutos a pie. Hay conexión Wi-Fi gratuita en las zonas comunes.';
+  static const String urlHotel =
+      'https://www.agoda.com/es-es/hostal-castilla/hotel/all/madrid-es.html?finalPriceView=2&isShowMobileAppPrice=false&cid=1763310&numberOfBedrooms=&familyMode=false&adults=2&children=0&rooms=1&maxRooms=0&checkIn=2022-06-21&isCalendarCallout=false&childAges=&numberOfGuest=0&missingChildAges=false&travellerType=-1&showReviewSubmissionEntry=false&currencyCode=EUR&isFreeOccSearch=false&tag=a50a5925-ed0f-4f5c-bd67-afc4a3f7b11b&flexibleDateSearchCriteria=[object%20Object]&isCityHaveAsq=false&los=1&searchrequestid=facae72b-92f7-47e4-a584-07dd55ce0889';
 }

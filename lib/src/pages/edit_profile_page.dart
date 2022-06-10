@@ -189,7 +189,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Future<void> updateUser() async {
-    utils.showLoadingIndicator(context, Constants.loadUpdate);
+    utils.showLoadingIndicator(context, Constants.load, Constants.loadSingUp);
     try {
       if (_auth.currentUser!.displayName != users.userName ||
           _auth.currentUser!.email != users.email ||

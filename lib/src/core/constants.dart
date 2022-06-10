@@ -86,9 +86,10 @@ class Constants {
   static const String provEmail = 'Email';
 
   //Loading
-  static const String loadSingUp = 'Registrando';
-  static const String loadLogin = 'Iniciando sesión';
-  static const String loadUpdate = 'Modificando usuario';
+  static const String load = 'Cargando..';
+  static const String loadSingUp = 'Registrando usuario, por favor espere';
+  static const String loadLogin = 'Iniciando sesión de forma segura';
+  static const String loadUpdate = 'Modificando usuario, por favor espere';
 
   //BottomAppBar
   static const String bAppBarHome = 'Inicio';

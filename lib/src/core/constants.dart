@@ -138,6 +138,8 @@ class Constants {
   static const String hotelPhoto = 'photo';
   static const String hotelService = 'service';
   static const String hotelReview = 'review';
+  static const String hotelImageUnavailable =
+      'https://www.torrenuevacosta.com/images/no-imagen-109.jpg';
 
   //review
   static const String reviewId = 'idReview';
@@ -158,6 +160,9 @@ class Constants {
   static const String offerPerson = 'person';
   static const String offerRoom = 'room';
   static const String offerListHotel = 'listHotel';
+  static const String offUrlPage = 'urlPage';
+  static const String offTxtWeb = 'por noche en ';
+  static const String offTxtPriceNight = ' noches por  ';
 
   //favorite
   static const String favId = 'idFav';

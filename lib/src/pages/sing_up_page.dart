@@ -218,9 +218,4 @@ class _SingUpPageState extends State<SingUpPage> {
     }
     auth_service.createUserFireWithEmailAndPassword(context, users);
   }
-
-  _closeCircAndNav() {
-    utils.hideLoadingIndicator(context);
-    Navigator.of(context).pushReplacementNamed(Constants.routesLogin);
-  }
 }

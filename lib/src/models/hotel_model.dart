@@ -26,10 +26,10 @@ class HotelModel {
         description = json[Constants.hotelDescription],
         hotelName = json[Constants.hotelName],
         location = json[Constants.hotelLocation],
-        star = json[Constants.hotelStar].cast<String>(),
+        star = json[Constants.hotelStar],
         photo = json[Constants.hotelPhoto].cast<String>(),
-        service = json[Constants.hotelService].cast<String>(),
-        review = json[Constants.hotelReview].cast<String>();
+        service = json[Constants.hotelService].cast<String>();
+  //review = json[Constants.hotelReview].cast<String>();
 
   Map<String, dynamic> toJson() => {
         Constants.hotelId: idHotel,

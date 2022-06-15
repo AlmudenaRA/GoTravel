@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 class ButtonText extends StatelessWidget {
   final String text;
   final Color color;
-  final String navigation;
+  final Function onPressed;
   const ButtonText({
     Key? key,
     required this.text,
     required this.color,
-    required this.navigation,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        Navigator.pushNamed(context, navigation);
+        onPressed();
       },
       child: Text(
         text,

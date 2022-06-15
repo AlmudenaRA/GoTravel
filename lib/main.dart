@@ -31,7 +31,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     //Forzar la pantalla en vertical
@@ -61,7 +60,6 @@ class MyApp extends StatelessWidget {
         Constants.routesEditProfile: (_) => const EditProfilePage(),
         Constants.routesFilter: (_) => const FilterPage(),
         Constants.routesRoom: (_) => const RoomsPage(),
-        Constants.routesDetailHotel: (_) => const DetailHotel(),
       },
 
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

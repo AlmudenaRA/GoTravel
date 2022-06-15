@@ -190,13 +190,11 @@ class _SingUpPageState extends State<SingUpPage> {
         });
   }
 
-  imagenStorage() {
-    firebase_storage.FirebaseStorage.instance
+  imagenStorage() async {
+    await firebase_storage.FirebaseStorage.instance
         .ref("images/user/${_auth.currentUser!.uid}.jpg")
-        .putFile(File(image!.path))
-        .whenComplete(() => {
-              downImageStorage(),
-            });
+        .putFile(File(image!.path));
+    await downImageStorage();
   }
 
   ///Se descarga la url de firebaseStorage
@@ -205,7 +203,6 @@ class _SingUpPageState extends State<SingUpPage> {
         .ref("images/user/${_auth.currentUser!.uid}.jpg")
         .getDownloadURL();
     users.avatar = url;
-    await auth_service.updateProfile(context, users);
   }
 
   _onPressed() async {
@@ -213,19 +210,12 @@ class _SingUpPageState extends State<SingUpPage> {
       return;
     }
     _formKey.currentState!.save();
-
-    await auth_service.createUserWithEmailAndPassword(context, users);
-
+    users =
+        await auth_service.createUserAuthWithEmailAndPassword(context, users);
     if (image != null) {
-      imagenStorage();
-      _closeCircAndNav();
+      await imagenStorage();
+      await auth_service.asignImageUserAuthWithEmailAndPassword(users);
     }
-
-    _closeCircAndNav();
-  }
-
-  _closeCircAndNav() {
-    utils.hideLoadingIndicator(context);
-    Navigator.of(context).pushReplacementNamed(Constants.routesLogin);
+    auth_service.createUserFireWithEmailAndPassword(context, users);
   }
 }

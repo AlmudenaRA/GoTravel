@@ -1,20 +1,26 @@
+import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gotravel/src/core/constants.dart';
+import 'package:gotravel/src/models/hotel_model.dart';
 import 'package:gotravel/src/pages/list_review_page.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/widget/button_text_icon.dart';
-import 'package:gotravel/src/widget/rounded_button.dart';
 import 'package:gotravel/src/widget/text_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailHotel extends StatefulWidget {
-  const DetailHotel({Key? key}) : super(key: key);
+  final HotelModel hotelModel;
+  const DetailHotel({Key? key, required this.hotelModel}) : super(key: key);
 
   @override
-  State<DetailHotel> createState() => _DetailHotelState();
+  State<DetailHotel> createState() => _DetailHotelState(hotelModel);
 }
 
 class _DetailHotelState extends State<DetailHotel> {
+  HotelModel hotelModel;
+  _DetailHotelState(this.hotelModel);
+
   // List<String> images = [
   //   "https://www.nationalgeographic.com.es/medio/2018/02/27/playa-de-isuntza-lekeitio__1280x720.jpg",
   //   "https://www.xtrafondos.com/descargar.php?id=5846&resolucion=2560x1440",
@@ -29,15 +35,15 @@ class _DetailHotelState extends State<DetailHotel> {
       body: SingleChildScrollView(
           child: Column(
         children: [
-          _swiper(),
+          _swiper(hotelModel),
           const SizedBox(
             height: 20,
           ),
-          _dataHotel(),
+          _dataHotel(hotelModel),
           const SizedBox(
             height: 20,
           ),
-          _description(),
+          _description(hotelModel),
           const SizedBox(
             height: 20,
           ),
@@ -53,11 +59,12 @@ class _DetailHotelState extends State<DetailHotel> {
   }
 }
 
-_swiper() {
+_swiper(hotelModel) {
   return Column(
     children: [
-      Image.network(
-          "https://www.nationalgeographic.com.es/medio/2018/02/27/playa-de-isuntza-lekeitio__1280x720.jpg"),
+      hotelModel.photo![0].isEmpty
+          ? Image.network(Constants.hotelImageUnavailable)
+          : Image.network(hotelModel.photo![0].toString()),
     ],
   );
   // return Container(
@@ -80,14 +87,14 @@ _swiper() {
   //     ));
 }
 
-_dataHotel() {
+_dataHotel(HotelModel hotelModel) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const TextData(
-          padding: EdgeInsets.only(left: 20),
-          text: "Nombre del hotel",
+        TextData(
+          padding: const EdgeInsets.only(left: 20),
+          text: hotelModel.hotelName!,
           color: MyColors.textWhite,
           fontSize: 24,
         ),
@@ -98,39 +105,49 @@ _dataHotel() {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const Padding(padding: EdgeInsets.only(left: 20)),
-            _checkStar(),
-            const TextData(
-              padding: EdgeInsets.only(left: 20),
-              text: "Madrid",
+            RatingBar.builder(
+              initialRating: hotelModel.star!.toDouble(),
+              minRating: 0,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              tapOnlyMode: true,
+              itemSize: 15,
+              itemPadding: const EdgeInsets.symmetric(horizontal: 1.5),
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: MyColors.textWhite,
+              ),
+              onRatingUpdate: (rating) {
+                //print(rating);
+              },
+            ),
+            TextData(
+              padding: const EdgeInsets.only(left: 20),
+              text: hotelModel.location!,
               color: MyColors.textWhite,
               fontSize: 13,
             ),
           ],
         )
       ]),
-      IconButton(
-          padding: const EdgeInsets.only(right: 30),
-          onPressed: () {},
-          icon: const Icon(
-            Icons.favorite,
-            color: MyColors.textWhite,
-            size: 30,
-          ))
+      const SizedBox(
+        width: 100,
+      ),
+      FavoriteButton(
+        iconSize: 50,
+        iconDisabledColor: MyColors.textWhite,
+        iconColor: MyColors.secundary,
+        valueChanged: (_) {},
+      ),
+      const SizedBox(
+        width: 15,
+      ),
     ],
   );
 }
 
-_checkStar() {
-  for (int i = 1; i < 3; i++) {
-    return const Icon(
-      Icons.star,
-      color: MyColors.textWhite,
-      size: 15,
-    );
-  }
-}
-
-_description() {
+_description(HotelModel hotelModel) {
   return Column(
     children: [
       Row(children: const [
@@ -146,7 +163,7 @@ _description() {
         height: 10,
       ),
       Row(
-        children: const [
+        children: [
           Text.rich(TextSpan(children: <InlineSpan>[
             WidgetSpan(
                 child: SizedBox(
@@ -154,8 +171,8 @@ _description() {
               height: 120,
               child: SingleChildScrollView(
                   child: TextData(
-                padding: EdgeInsets.only(left: 20),
-                text: Constants.description,
+                padding: const EdgeInsets.only(left: 20),
+                text: hotelModel.description!,
                 color: MyColors.textWhite,
                 fontSize: 13,
                 fontWeight: FontWeight.bold,

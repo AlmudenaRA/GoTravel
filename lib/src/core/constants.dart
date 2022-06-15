@@ -86,9 +86,10 @@ class Constants {
   static const String provEmail = 'Email';
 
   //Loading
-  static const String loadSingUp = 'Registrando';
-  static const String loadLogin = 'Iniciando sesión';
-  static const String loadUpdate = 'Modificando usuario';
+  static const String load = 'Cargando..';
+  static const String loadSingUp = 'Registrando usuario, por favor espere';
+  static const String loadLogin = 'Iniciando sesión de forma segura';
+  static const String loadUpdate = 'Modificando usuario, por favor espere';
 
   //BottomAppBar
   static const String bAppBarHome = 'Inicio';
@@ -106,6 +107,7 @@ class Constants {
   //tooltip
   static const String tooltipFilter = 'Filtrar';
   static const String tooltipOrderBy = 'Orden ';
+  static const String tooltipSearch = 'Buscar ';
 
   //order_by
   static const String orderPrice = 'Precio';
@@ -137,6 +139,8 @@ class Constants {
   static const String hotelPhoto = 'photo';
   static const String hotelService = 'service';
   static const String hotelReview = 'review';
+  static const String hotelImageUnavailable =
+      'https://www.torrenuevacosta.com/images/no-imagen-109.jpg';
 
   //review
   static const String reviewId = 'idReview';
@@ -157,6 +161,9 @@ class Constants {
   static const String offerPerson = 'person';
   static const String offerRoom = 'room';
   static const String offerListHotel = 'listHotel';
+  static const String offUrlPage = 'urlPage';
+  static const String offTxtWeb = 'por noche en ';
+  static const String offTxtPriceNight = ' noches por  ';
 
   //favorite
   static const String favId = 'idFav';

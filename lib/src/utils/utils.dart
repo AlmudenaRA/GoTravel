@@ -48,20 +48,18 @@ void showAlertDialog(BuildContext context, String title, String content,
 
 void hideLoadingIndicator(context) => Navigator.pop(context);
 
-void showLoadingIndicator(context, String? text) {
+void showLoadingIndicator(context, String textTitle, String textSubtitle) {
   showDialog(
     context: context,
-    barrierDismissible: false, //impide que el usuario cierre pulsando fuera
+    barrierDismissible: true,
     builder: (BuildContext context) {
       return WillPopScope(
-        onWillPop: () async =>
-            false, // impide que el usuario cierre cuando pulse atrás
+        onWillPop: () async => false,
         child: AlertDialog(
-          content: loadingIndicator(
-              indicatorType: const CircularProgressIndicator(),
-              colors: [MyColors.secundaryLig],
-              strokeWidth: 2,
-              text: Text(text!)),
+          // content: LoadCircular(
+          //   textTitle: textTitle,
+          //   textSubtitle: textSubtitle,
+          // ),
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),

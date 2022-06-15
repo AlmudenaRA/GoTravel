@@ -14,7 +14,6 @@ signInWithGoogle(context) async {
   try {
     final googleUser = await GoogleSignIn().signIn();
     final googleAuth = await googleUser?.authentication;
-
     // Crea una nueva credencial
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
@@ -41,10 +40,10 @@ logOut(context) async {
 }
 
 //Registrar usuario
-createUserWithEmailAndPassword(context, UserModel user) async {
+Future<UserModel> createUserAuthWithEmailAndPassword(
+    context, UserModel user) async {
   user.password = utils.sha256Password(user.password!);
-  utils.showLoadingIndicator(context, Constants.loadSingUp);
-
+  utils.showLoadingIndicator(context, Constants.load, Constants.loadSingUp);
   try {
     UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: user.email!, password: user.password!);
@@ -52,31 +51,35 @@ createUserWithEmailAndPassword(context, UserModel user) async {
     await us.updateDisplayName(user.userName);
     user.id =
         _firebaseAuth.currentUser!.uid; //se añade el id del auth al modelo
-
-    await user_provider.addUser(user); //se añade a firestore
-
-    // if (user.avatar != null) {
-    //   await _firebaseAuth.currentUser!.updatePhotoURL(user.avatar);
-    // }
-
-    utils.hideLoadingIndicator(context);
-    utils.showAlertDialog(context, Constants.textRegistration,
-        Constants.textRegistered, () => Navigator.pop(context));
+    return user;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'auth/email-already-exists') {
       _errorAlert(context, Constants.emailRegistered);
     } else {
       _errorAlert(context, e.message);
     }
+    return user;
   } catch (e) {
     utils.hideLoadingIndicator(context);
     _errorAlert(context, e);
+    return user;
   }
+}
+
+Future<void> asignImageUserAuthWithEmailAndPassword(UserModel user) async {
+  await _firebaseAuth.currentUser!.updatePhotoURL(user.avatar);
+}
+
+createUserFireWithEmailAndPassword(context, UserModel user) async {
+  await user_provider.addUser(user); //se añade a firestore
+  utils.hideLoadingIndicator(context);
+  utils.showAlertDialog(context, Constants.textRegistration,
+      Constants.textRegistered, () => Navigator.pop(context));
 }
 
 //autentica un usuario con email y contraseña
 singInWithEmailAndPass(context, UserModel user) async {
-  utils.showLoadingIndicator(context, Constants.loadLogin);
+  utils.showLoadingIndicator(context, Constants.load, Constants.loadLogin);
   try {
     await _firebaseAuth
         .signInWithEmailAndPassword(
@@ -85,9 +88,8 @@ singInWithEmailAndPass(context, UserModel user) async {
       utils.hideLoadingIndicator(context);
       SharePrefs.instance.provider = (Constants.provEmail);
       Navigator.of(context).pushReplacementNamed(Constants.routesHome);
-    }); //added this line
+    });
   } on FirebaseAuthException catch (e) {
-    //error controlado de email o contraseñas no correctas
     if (e.code == 'user-not-found' || e.code == 'wrong-password') {
       _errorAlert(context, Constants.wrongUserOrPass);
     } else {

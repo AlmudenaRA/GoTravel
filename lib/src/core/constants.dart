@@ -107,6 +107,7 @@ class Constants {
   //tooltip
   static const String tooltipFilter = 'Filtrar';
   static const String tooltipOrderBy = 'Orden ';
+  static const String tooltipSearch = 'Buscar ';
 
   //order_by
   static const String orderPrice = 'Precio';

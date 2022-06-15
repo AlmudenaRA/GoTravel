@@ -58,15 +58,16 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
-                  Text(
+                children: <Widget>[
+                  const Text(
                     Constants.textCuenta,
                     style: TextStyle(color: MyColors.textWhite),
                   ),
                   ButtonText(
                     text: Constants.buttonSingUpLogin,
                     color: MyColors.secundaryLig,
-                    navigation: Constants.routesSingUp,
+                    onPressed: () =>
+                        Navigator.pushNamed(context, Constants.routesSingUp),
                   ),
                 ],
               ),

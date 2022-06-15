@@ -60,7 +60,6 @@ class MyApp extends StatelessWidget {
         Constants.routesEditProfile: (_) => const EditProfilePage(),
         Constants.routesFilter: (_) => const FilterPage(),
         Constants.routesRoom: (_) => const RoomsPage(),
-        Constants.routesDetailHotel: (_) => const DetailHotel(),
       },
 
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

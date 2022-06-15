@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/models/hotel_model.dart';
 import 'package:gotravel/src/models/offer_model.dart';
+import 'package:gotravel/src/pages/details_hotel_page.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/widget/button_text.dart';
 import 'package:gotravel/src/widget/button_text_icon.dart';
@@ -23,7 +24,10 @@ class CardHotel extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.pushNamed(context, Constants.routesDetailHotel);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailHotel(hotelModel: hotelModel)));
         },
         child: Card(
           margin: const EdgeInsets.all(20),
@@ -36,13 +40,13 @@ class CardHotel extends StatelessWidget {
                   ? Image.network(Constants.hotelImageUnavailable)
                   : Image.network(hotelModel.photo![0].toString()),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TextData(
-                          padding: const EdgeInsets.only(left: 20, top: 10),
+                          padding: const EdgeInsets.only(top: 10),
                           text: hotelModel.hotelName!,
                           color: MyColors.textWhite,
                           fontSize: 18,
@@ -50,7 +54,7 @@ class CardHotel extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Padding(padding: EdgeInsets.only(left: 20)),
+                            // const Padding(padding: EdgeInsets.only(left: 10)),
                             RatingBar.builder(
                               initialRating: hotelModel.star!.toDouble(),
                               minRating: 0,
@@ -81,28 +85,26 @@ class CardHotel extends StatelessWidget {
                           height: 10,
                         )
                       ]),
-                  const SizedBox(
-                    width: 125,
-                  ),
-                  FavoriteButton(
-                    iconSize: 40,
-                    iconDisabledColor: MyColors.textWhite,
-                    iconColor: MyColors.secundary,
-                    valueChanged: (_) {},
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FavoriteButton(
+                          iconSize: 40,
+                          iconDisabledColor: MyColors.textWhite,
+                          iconColor: MyColors.secundary,
+                          valueChanged: (_) {},
+                        ),
+                      ]),
                 ],
               ),
               _offer(hotelModel),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
+                children: [
                   ButtonText(
                     text: Constants.btnOtherOffer,
                     color: MyColors.pLightSure,
-                    navigation: Constants.routesProfile,
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -111,8 +113,8 @@ class CardHotel extends StatelessWidget {
         ));
   }
 
-  _onPressed() async {
-    final Uri _url = Uri.parse(Constants.urlHotel);
+  _onPressed(OfferModel offer) async {
+    final Uri _url = Uri.parse(offer.website!);
     if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 
@@ -120,7 +122,6 @@ class CardHotel extends StatelessWidget {
     final CollectionReference offerRef =
         FirebaseFirestore.instance.collection(Constants.collectionOffer);
     OfferModel offer = OfferModel();
-
     return FutureBuilder(
       future: offerRef
           .where("idHotel", isEqualTo: hotel.idHotel)
@@ -134,13 +135,11 @@ class CardHotel extends StatelessWidget {
             color: MyColors.secundary,
           ));
         }
-
         return ListView.builder(
           shrinkWrap: true,
           itemCount: snapshot.data.docs.length,
           itemBuilder: (BuildContext context, index) {
             offer = OfferModel.fromJson(snapshot.data.docs[index].data());
-
             return _bestOffer(offer);
           },
         );
@@ -210,7 +209,7 @@ class CardHotel extends StatelessWidget {
           ButtonTextIcon(
             text: Constants.btnOffer,
             color: MyColors.textButton,
-            onPressed: _onPressed,
+            onPressed: () => _onPressed(offer),
           ),
         ],
       ),

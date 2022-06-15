@@ -2,7 +2,7 @@ import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/models/hotel_model.dart';
 
 class OfferModel {
-  String? idOffert;
+  String? idOffer;
   String? idHotel;
   String? destiny;
   String? website;
@@ -16,7 +16,7 @@ class OfferModel {
   List<HotelModel>? listHotel;
 
   OfferModel(
-      {this.idOffert,
+      {this.idOffer,
       this.idHotel,
       this.destiny,
       this.website,
@@ -30,7 +30,7 @@ class OfferModel {
       this.listHotel});
 
   OfferModel.fromJson(Map<String, dynamic> json)
-      : idOffert = json[Constants.offerId],
+      : idOffer = json[Constants.offerId],
         idHotel = json[Constants.offerIdHotel],
         destiny = json[Constants.offerDestiny],
         website = json[Constants.offerWebsite],
@@ -44,7 +44,7 @@ class OfferModel {
   // listHotel = json[Constants.offerListHotel].cast<String>();
 
   Map<String, dynamic> toJson() => {
-        Constants.offerId: idOffert,
+        Constants.offerId: idOffer,
         Constants.offerIdHotel: idHotel,
         Constants.offerDestiny: destiny,
         Constants.offerWebsite: website,

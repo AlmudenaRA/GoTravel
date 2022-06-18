@@ -48,30 +48,17 @@ class Review extends StatelessWidget {
                   child: SizedBox(
                 width: 335,
                 height: 80,
-                child: SingleChildScrollView(
-                    child: TextData(
+                child: TextData(
                   padding: EdgeInsets.only(left: 20),
                   text: Constants.description,
                   color: MyColors.textWhite,
                   fontSize: 13,
                   fontWeight: FontWeight.bold,
-                )),
+                ),
               ))
             ]))
           ],
         ),
-        const SizedBox(
-          height: 20,
-        ),
-        const Divider(
-          height: 10,
-          color: MyColors.pLight,
-          thickness: 1,
-        ),
-        // RoundedButton(
-        //   icon: Icons.add,
-        //   onTap: () {},
-        // ),
         const SizedBox(
           height: 20,
         ),

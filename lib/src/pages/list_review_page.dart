@@ -36,9 +36,7 @@ class ListReviewState extends State<ListReview> {
           itemCount: 3, //TODO snapshot.data.docs.length,
           itemBuilder: (BuildContext context, index) {
             //TODO review = ReviewModel.fromJson(snapshot.data.docs[index].data());
-            return const Review(
-                //hotelModel: hotel,
-                );
+            return const Review();
           },
         );
       },

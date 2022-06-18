@@ -29,6 +29,7 @@ class ListHotelState extends State<ListHotel> {
           ));
         }
         return ListView.builder(
+          padding: const EdgeInsets.all(20),
           shrinkWrap: true,
           itemCount: snapshot.data.docs.length,
           itemBuilder: (BuildContext context, index) {

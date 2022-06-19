@@ -44,7 +44,7 @@ dependencies:
   firebase_storage: ^10.2.17
   #images
   image_picker: ^0.8.5
-  flutter_image_slideshow: ^0.1.2
+  carousel_slider: ^4.1.1
   #share_preferences
   shared_preferences: ^2.0.15
   #slider

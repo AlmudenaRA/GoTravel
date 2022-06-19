@@ -22,7 +22,7 @@ class _TxtCommentState extends State<TxtComment> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: TextFormField(
-        style: const TextStyle(color: MyColors.textWhite, fontSize: 14),
+        style: const TextStyle(color: MyColors.textButton, fontSize: 14),
         keyboardType: widget.keyboardType,
         maxLines: 5,
         decoration: InputDecoration(
@@ -32,7 +32,7 @@ class _TxtCommentState extends State<TxtComment> {
           fillColor: MyColors.pLight,
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: MyColors.secundary, width: 1),
+            borderSide: const BorderSide(color: MyColors.secundary, width: 2),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

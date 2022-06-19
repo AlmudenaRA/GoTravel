@@ -1,5 +1,4 @@
 import 'package:gotravel/src/core/constants.dart';
-import 'package:gotravel/src/models/review_model.dart';
 
 class HotelModel {
   String? idHotel;
@@ -9,17 +8,18 @@ class HotelModel {
   int? star;
   List<String>? photo;
   List<String>? service;
-  List<ReviewModel>? review;
+  List<String>? review;
 
-  HotelModel(
-      {this.idHotel,
-      this.description,
-      this.hotelName,
-      this.location,
-      this.star,
-      this.photo,
-      this.service,
-      this.review});
+  HotelModel({
+    this.idHotel,
+    this.description,
+    this.hotelName,
+    this.location,
+    this.star,
+    this.photo,
+    this.service,
+    this.review,
+  });
 
   HotelModel.fromJson(Map<String, dynamic> json)
       : idHotel = json[Constants.hotelId],
@@ -39,6 +39,6 @@ class HotelModel {
         Constants.hotelStar: star,
         Constants.hotelPhoto: photo,
         Constants.hotelService: service,
-        Constants.hotelReview: review,
+        //Constants.hotelReview: review,
       };
 }

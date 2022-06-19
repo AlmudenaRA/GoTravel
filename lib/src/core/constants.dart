@@ -32,6 +32,7 @@ class Constants {
   static const String btnFilter = 'FILTRAR';
   static const String btnOffer = 'OFERTA';
   static const String btnOtherOffer = 'OTRAS OFERTAS';
+  static const String btnReviewSend = 'AÑADIR NUEVA RESEÑA';
 
   //Routes
   static const String routesSplash = 'splash_screen';
@@ -153,7 +154,7 @@ class Constants {
   static const String reviewIdUser = 'idUser';
   static const String reviewScore = 'score';
   static const String reviewComment = 'comment';
-  static const String reviewSend = 'Añadir nueva reseña';
+  static const String reviewNot = 'No hay reseñas de otros usuarios.';
 
   //offer
   static const String offerId = 'idOffert';

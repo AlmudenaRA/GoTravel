@@ -44,7 +44,6 @@ class Constants {
   static const String routesEditProfile = 'edit_profile';
   static const String routesFilter = 'filter';
   static const String routesRoom = 'room';
-  static const String routesDetailHotel = 'detailHotel';
 
   //Collection
   static const String collectionUser = 'users';
@@ -171,6 +170,10 @@ class Constants {
   static const String offUrlPage = 'urlPage';
   static const String offTxtWeb = 'por noche en ';
   static const String offTxtPriceNight = ' noches por  ';
+
+  //other offer
+  static const String otherRecommendation = 'Recomendación';
+  static const String otherOffers = 'Todas las ofertas';
 
   //favorite
   static const String favId = 'idFav';

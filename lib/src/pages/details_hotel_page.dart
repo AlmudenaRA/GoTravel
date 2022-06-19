@@ -17,7 +17,6 @@ import 'package:gotravel/src/widget/text_data.dart';
 import 'package:gotravel/src/widget/txt_comment.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-//import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:uuid/uuid.dart';
 
 class DetailHotel extends StatefulWidget {
@@ -78,21 +77,21 @@ class _DetailHotelState extends State<DetailHotel> {
 
   _swiper() {
     final List<Widget> listImag = hotelModel.photo!
-        .map((e) => Container(
-              child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                  child: Stack(
-                    children: [
-                      Image.network(
-                        e,
-                        fit: BoxFit.cover,
-                      )
-                    ],
-                  )),
-            ))
+        .map(
+          (e) => ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+              child: Stack(
+                children: [
+                  Image.network(
+                    e,
+                    fit: BoxFit.cover,
+                  )
+                ],
+              )),
+        )
         .toList();
 
-    return Container(
+    return SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(children: [
           CarouselSlider(
@@ -153,6 +152,7 @@ class _DetailHotelState extends State<DetailHotel> {
               const Padding(padding: EdgeInsets.only(left: 20)),
               StarHotel(
                 index: hotelModel.star!,
+                size: 15,
               ),
               TextData(
                 padding: const EdgeInsets.only(left: 20),

@@ -3,9 +3,11 @@ import 'package:gotravel/src/theme/my_colors.dart';
 
 class StarHotel extends StatelessWidget {
   final int index;
+  final double size;
   const StarHotel({
     Key? key,
     required this.index,
+    required this.size,
   }) : super(key: key);
 
   @override
@@ -81,18 +83,18 @@ class StarHotel extends StatelessWidget {
   }
 
   _starBlack() {
-    return const Icon(
+    return Icon(
       Icons.star,
       color: MyColors.starBlack,
-      size: 17,
+      size: size + 2.0,
     );
   }
 
   _starWhite() {
-    return const Icon(
+    return Icon(
       Icons.star,
       color: MyColors.textWhite,
-      size: 15,
+      size: size,
     );
   }
 }

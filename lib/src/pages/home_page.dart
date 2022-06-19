@@ -27,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: MyColors.pLight,
+        backgroundColor: MyColors.pDark,
         selectedItemColor: MyColors.secundary,
         unselectedItemColor: MyColors.textWhite,
         currentIndex: _selectedIndex,

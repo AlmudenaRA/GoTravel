@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:gotravel/src/models/hotel_model.dart';
 import 'package:gotravel/src/models/offer_model.dart';
 import 'package:gotravel/src/pages/details_hotel_page.dart';
+import 'package:gotravel/src/pages/other_offer_page.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/widget/button_text.dart';
 import 'package:gotravel/src/widget/button_text_icon.dart';
+import 'package:gotravel/src/widget/star_hotel.dart';
 import 'package:gotravel/src/widget/text_data.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:favorite_button/favorite_button.dart';
 
 class CardHotel extends StatelessWidget {
@@ -33,7 +34,7 @@ class CardHotel extends StatelessWidget {
           Container(
             margin: const EdgeInsets.symmetric(vertical: 10),
             decoration: const BoxDecoration(
-                color: MyColors.pLight,
+                color: MyColors.pDark,
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Column(
@@ -65,23 +66,9 @@ class CardHotel extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               // const Padding(padding: EdgeInsets.only(left: 10)),
-                              RatingBar.builder(
-                                initialRating: hotelModel.star!.toDouble(),
-                                minRating: 0,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                tapOnlyMode: true,
-                                itemSize: 10,
-                                itemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 1.5),
-                                itemBuilder: (context, _) => const Icon(
-                                  Icons.star,
-                                  color: MyColors.textWhite,
-                                ),
-                                onRatingUpdate: (rating) {
-                                  //print(rating);
-                                },
+                              StarHotel(
+                                index: hotelModel.star!,
+                                size: 10,
                               ),
                               TextData(
                                 padding: const EdgeInsets.only(left: 20),
@@ -114,7 +101,13 @@ class CardHotel extends StatelessWidget {
                     ButtonText(
                       text: Constants.btnOtherOffer,
                       color: MyColors.pLightSure,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    OtherOffer(hotelModel: hotelModel)));
+                      },
                     ),
                   ],
                 ),
@@ -162,7 +155,7 @@ class CardHotel extends StatelessWidget {
     return Container(
       width: 300,
       height: 50,
-      color: MyColors.pLightSure,
+      color: MyColors.secundaryDark,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -173,7 +166,7 @@ class CardHotel extends StatelessWidget {
                 TextData(
                   padding: const EdgeInsets.only(top: 10, left: 10),
                   text: '${offer.priceNight!.floor()} €',
-                  color: MyColors.secundaryDark,
+                  color: MyColors.pLightSure,
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                 ),
@@ -182,12 +175,12 @@ class CardHotel extends StatelessWidget {
                 const TextData(
                   padding: EdgeInsets.only(left: 10),
                   text: Constants.offTxtWeb,
-                  color: Colors.black,
+                  color: MyColors.textWhite,
                   fontSize: 10,
                 ),
                 TextData(
                   text: offer.urlPage!,
-                  color: Colors.black,
+                  color: MyColors.textWhite,
                   fontSize: 10,
                 )
               ]),

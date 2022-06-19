@@ -20,8 +20,8 @@ signInWithGoogle(context) async {
       idToken: googleAuth?.idToken,
     );
     await _firebaseAuth.signInWithCredential(credential).then((value) {
-      user_provider.addUserAuth(_firebaseAuth);
       SharePrefs.instance.provider = Constants.provGoogle;
+      user_provider.addUserAuth(_firebaseAuth);
       utils.hideLoadingIndicator(context);
       Navigator.of(context).pushReplacementNamed(Constants.routesHome);
     });

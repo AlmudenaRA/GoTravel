@@ -44,13 +44,13 @@ class Constants {
   static const String routesEditProfile = 'edit_profile';
   static const String routesFilter = 'filter';
   static const String routesRoom = 'room';
-  static const String routesDetailHotel = 'detailHotel';
 
   //Collection
   static const String collectionUser = 'users';
   static const String collectionHotel = 'hotel';
   static const String collectionOffer = 'offer';
   static const String collectionReview = 'review';
+  static const String collectionFavorite = 'favorite';
 
   //Login
   static const String textCuenta = "¿No tiene cuenta? ";
@@ -114,6 +114,7 @@ class Constants {
   static const String tooltipFilter = 'Filtrar';
   static const String tooltipOrderBy = 'Orden ';
   static const String tooltipSearch = 'Buscar ';
+  static const String tooltipFav = 'Favorito ';
 
   //order_by
   static const String orderPrice = 'Precio';
@@ -172,11 +173,16 @@ class Constants {
   static const String offTxtWeb = 'por noche en ';
   static const String offTxtPriceNight = ' noches por  ';
 
+  //other offer
+  static const String otherRecommendation = 'Recomendación';
+  static const String otherOffers = 'Todas las ofertas';
+
   //favorite
   static const String favId = 'idFav';
   static const String favIdHotel = 'idHotel';
   static const String favIdUser = 'idUser';
   static const String favLocation = 'location';
+  static const String favIsFavorite = 'isFav';
 
   //Details
   static const String detDescription = 'Descripción:';
@@ -186,4 +192,9 @@ class Constants {
 
   //Review
   static const String newReview = 'Añadir reseña: ';
+
+  //MenuItems
+  static const String menuLocation = 'Localización';
+  static const String menuHotel = 'Nombre hotel';
+  static const String menuStar = 'Estrellas hotel';
 }

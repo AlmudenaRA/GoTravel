@@ -1,17 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gotravel/src/models/favorite_model.dart';
 import 'package:gotravel/src/models/hotel_model.dart';
 import 'package:gotravel/src/models/offer_model.dart';
 import 'package:gotravel/src/pages/details_hotel_page.dart';
 import 'package:gotravel/src/pages/other_offer_page.dart';
+import 'package:gotravel/src/provider/fav_provider.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/widget/button_text.dart';
 import 'package:gotravel/src/widget/button_text_icon.dart';
+import 'package:gotravel/src/widget/favorite_button.dart';
 import 'package:gotravel/src/widget/star_hotel.dart';
 import 'package:gotravel/src/widget/text_data.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:favorite_button/favorite_button.dart';
+import 'package:uuid/uuid.dart';
 
 class CardHotel extends StatelessWidget {
   final HotelModel hotelModel;
@@ -23,98 +27,100 @@ class CardHotel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DetailHotel(hotelModel: hotelModel)));
-        },
-        child: Stack(children: [
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            decoration: const BoxDecoration(
-                color: MyColors.pDark,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: Column(
-              children: [
-                Container(
-                  width: 320,
-                  decoration: const BoxDecoration(
-                    color: MyColors.pLight,
-                    shape: BoxShape.circle,
-                    //borderRadius: BorderRadius.all(Radius.circular(10)
-                  ),
-                  child: hotelModel.photo![0].isEmpty
-                      ? Image.network(Constants.hotelImageUnavailable)
-                      : Image.network(hotelModel.photo![0].toString()),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+    FavoriteModel fav = FavoriteModel();
+    final _auth = FirebaseAuth.instance;
+    bool isFav = false;
+    return Material(
+        shadowColor: MyColors.background,
+        color: Colors.transparent,
+        surfaceTintColor: MyColors.background,
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        child: InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          DetailHotel(hotelModel: hotelModel)));
+            },
+            child: Stack(children: [
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                decoration: const BoxDecoration(
+                    color: MyColors.pDark,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Column(
                   children: [
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextData(
-                            padding: const EdgeInsets.only(top: 10),
-                            text: hotelModel.hotelName!,
-                            color: MyColors.textWhite,
-                            fontSize: 18,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                    Container(
+                      width: 320,
+                      decoration: const BoxDecoration(
+                        color: MyColors.pDark,
+                        //shape: BoxShape.circle,
+                        //borderRadius: BorderRadius.all(Radius.circular(10)
+                      ),
+                      child: hotelModel.photo![0].isEmpty
+                          ? Image.network(Constants.hotelImageUnavailable)
+                          : Image.network(hotelModel.photo![0].toString()),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // const Padding(padding: EdgeInsets.only(left: 10)),
-                              StarHotel(
-                                index: hotelModel.star!,
-                                size: 10,
-                              ),
                               TextData(
-                                padding: const EdgeInsets.only(left: 20),
-                                text: hotelModel.location!,
+                                padding: const EdgeInsets.only(top: 10),
+                                text: hotelModel.hotelName!,
                                 color: MyColors.textWhite,
-                                fontSize: 13,
+                                fontSize: 18,
                               ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          )
-                        ]),
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          FavoriteButton(
-                            iconSize: 40,
-                            iconDisabledColor: MyColors.textWhite,
-                            iconColor: MyColors.secundary,
-                            valueChanged: (_) {},
-                          ),
-                        ]),
-                  ],
-                ),
-                _offer(hotelModel),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ButtonText(
-                      text: Constants.btnOtherOffer,
-                      color: MyColors.pLightSure,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    OtherOffer(hotelModel: hotelModel)));
-                      },
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  StarHotel(
+                                    index: hotelModel.star!,
+                                    size: 10,
+                                  ),
+                                  TextData(
+                                    padding: const EdgeInsets.only(left: 20),
+                                    text: hotelModel.location!,
+                                    color: MyColors.textWhite,
+                                    fontSize: 13,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              )
+                            ]),
+                        ButtonFavorite(
+                            isFavorite: isFav,
+                            color: MyColors.textWhite,
+                            onPressed: () => _valueFavorite(isFav, _auth, fav)),
+                      ],
+                    ),
+                    _offer(hotelModel),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ButtonText(
+                          text: Constants.btnOtherOffer,
+                          color: MyColors.pLightSure,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        OtherOffer(hotelModel: hotelModel)));
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-        ]));
+              ),
+            ])));
   }
 
   _onPressed(OfferModel offer) async {
@@ -195,5 +201,25 @@ class CardHotel extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _valueFavorite(isFav, FirebaseAuth _auth, FavoriteModel fav) async {
+    if (!isFav) {
+      addFavorite(fav, _auth, isFav);
+      return isFav = true;
+    } else {
+      deleteFav(fav);
+      return isFav = false;
+    }
+  }
+
+  addFavorite(FavoriteModel fav, FirebaseAuth _auth, isFav) async {
+    var uuid = const Uuid();
+    fav.idFav = uuid.v4();
+    fav.idHotel = hotelModel.idHotel;
+    fav.idUser = _auth.currentUser!.uid;
+    fav.location = hotelModel.location;
+    fav.isFav = isFav;
+    addFav(fav);
   }
 }

@@ -12,6 +12,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  bool location = false;
+  bool nameHotel = false;
+  bool starHotel = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,13 +33,82 @@ class _MainPageState extends State<MainPage> {
             icon: const Icon(Icons.filter_alt),
             tooltip: Constants.tooltipFilter,
           ),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.swap_vert),
-              tooltip: Constants.tooltipOrderBy),
+          PopupMenuButton(
+            icon: const Icon(Icons.swap_vert),
+            tooltip: Constants.tooltipOrderBy,
+            onSelected: (item) => _onSelected(context, item),
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                child: Text(Constants.menuLocation),
+                value: 0,
+              ),
+              const PopupMenuItem(
+                child: Text(Constants.menuHotel),
+                value: 1,
+              ),
+              const PopupMenuItem(
+                child: Text(Constants.menuStar),
+                value: 2,
+              )
+            ],
+          ),
         ],
       ),
-      body: const ListHotel(),
+      body: const ListHotel(
+        score: 0.0,
+        star: 0.0,
+        price: 10,
+        location: false,
+        nameHotel: false,
+        starHotel: false,
+      ),
     );
+  }
+
+  _onSelected(BuildContext context, item) {
+    switch (item) {
+      case 0:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const ListHotel(
+                      score: 0.0,
+                      star: 0.0,
+                      price: 10,
+                      location: true,
+                      nameHotel: false,
+                      starHotel: false,
+                    )));
+        // return location = true;
+        break;
+      case 1:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const ListHotel(
+                      score: 0.0,
+                      star: 0.0,
+                      price: 10,
+                      location: false,
+                      nameHotel: true,
+                      starHotel: false,
+                    )));
+        // return nameHotel = true;
+        break;
+      case 2:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const ListHotel(
+                      score: 0.0,
+                      star: 0.0,
+                      price: 10,
+                      starHotel: true,
+                      nameHotel: false,
+                      location: false,
+                    )));
+        break;
+      default:
+    }
   }
 }

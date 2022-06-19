@@ -6,7 +6,22 @@ import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/widget/card_hotel.dart';
 
 class ListHotel extends StatefulWidget {
-  const ListHotel({Key? key}) : super(key: key);
+  final double score;
+  final double star;
+  final double price;
+  final bool? location;
+  final bool? nameHotel;
+  final bool? starHotel;
+
+  const ListHotel(
+      {Key? key,
+      required this.score,
+      required this.star,
+      required this.price,
+      this.location,
+      this.nameHotel,
+      this.starHotel})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => ListHotelState();
@@ -20,7 +35,7 @@ class ListHotelState extends State<ListHotel> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: hotelRef.get(),
+      future: queryData(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (!snapshot.hasData) {
           return const Center(
@@ -41,5 +56,19 @@ class ListHotelState extends State<ListHotel> {
         );
       },
     );
+  }
+
+  Future queryData() async {
+    if (widget.star > 0.0) {
+      return hotelRef.where("star", isGreaterThanOrEqualTo: widget.star).get();
+    }
+    if (widget.location!) {
+      return hotelRef.orderBy("location").get();
+    } else if (widget.nameHotel!) {
+      return hotelRef.orderBy("hotelName").get();
+    } else if (widget.starHotel!) {
+      return hotelRef.orderBy("star").get();
+    }
+    return hotelRef.get();
   }
 }

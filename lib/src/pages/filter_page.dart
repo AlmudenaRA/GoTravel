@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gotravel/src/core/constants.dart';
+import 'package:gotravel/src/pages/list_hotel.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/widget/button.dart';
-import 'package:gotravel/src/widget/button_star.dart';
 import 'package:gotravel/src/widget/text_data.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -15,8 +16,9 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
-  double _valuePrice = 10;
-  double _valueAssessment = 0;
+  double valuePrice = 10;
+  double score = 0.0;
+  double star = 0.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +35,7 @@ class _FilterPageState extends State<FilterPage> {
             children: <Widget>[
               const TextData(
                 text: Constants.filterDate,
-                color: MyColors.textWhite,
+                color: MyColors.textButton,
                 fontSize: 15,
               ),
               const SizedBox(
@@ -43,7 +45,7 @@ class _FilterPageState extends State<FilterPage> {
               _space(),
               const TextData(
                 text: Constants.filterRoom,
-                color: MyColors.textWhite,
+                color: MyColors.textButton,
                 fontSize: 15,
               ),
               const SizedBox(
@@ -59,47 +61,52 @@ class _FilterPageState extends State<FilterPage> {
               _space(),
               const TextData(
                 text: Constants.priceNight,
-                color: MyColors.textWhite,
+                color: MyColors.textButton,
                 fontSize: 15,
               ),
               _sliderPrice(),
               _space(),
               const TextData(
                 text: Constants.hotelCateg,
-                color: MyColors.textWhite,
+                color: MyColors.textButton,
                 fontSize: 15,
-              ),
-              const SizedBox(
-                height: 20,
               ),
               _starHotel(),
               _space(),
               const TextData(
                 text: Constants.assessment,
-                color: MyColors.textWhite,
+                color: MyColors.textButton,
                 fontSize: 15,
               ),
-              sliderAssessment(),
+              _ratingBarVote(),
               _space(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Button(
-                    width: 0.45,
-                    heigth: 50,
-                    color: MyColors.red,
-                    text: Constants.buttonCancel,
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  Button(
-                    width: 0.45,
-                    heigth: 50,
-                    color: MyColors.secundary,
-                    text: Constants.btnFilter,
-                    onPressed: () => _onPressed(),
-                  ),
-                ],
-              ),
+              Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 3),
+                  child: Row(
+                    children: [
+                      Button(
+                        width: 0.45,
+                        heigth: 50,
+                        color: MyColors.red,
+                        text: Constants.buttonCancel,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      Button(
+                        width: 0.45,
+                        heigth: 50,
+                        color: MyColors.secundary,
+                        text: Constants.btnFilter,
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ListHotel(
+                                      score: score,
+                                      star: star,
+                                      price: valuePrice,
+                                    ))),
+                      ),
+                    ],
+                  )),
             ],
           ),
         ),
@@ -126,30 +133,23 @@ class _FilterPageState extends State<FilterPage> {
   }
 
   _starHotel() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        ButtonStar(text: '1'),
-        SizedBox(
-          width: 20,
+    return Container(
+      margin: const EdgeInsets.only(left: 40, top: 20),
+      child: RatingBar.builder(
+        initialRating: star,
+        direction: Axis.horizontal,
+        allowHalfRating: true,
+        itemCount: 5,
+        unratedColor: MyColors.textWhite,
+        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+        itemBuilder: (context, _) => const Icon(
+          Icons.star,
+          color: MyColors.secundary,
         ),
-        ButtonStar(text: '2'),
-        SizedBox(
-          width: 20,
-        ),
-        ButtonStar(text: '3'),
-        SizedBox(
-          width: 20,
-        ),
-        ButtonStar(text: '4'),
-        SizedBox(
-          width: 20,
-        ),
-        ButtonStar(text: '5'),
-        SizedBox(
-          width: 20,
-        ),
-      ],
+        onRatingUpdate: (rating) {
+          star = rating;
+        },
+      ),
     );
   }
 
@@ -168,7 +168,7 @@ class _FilterPageState extends State<FilterPage> {
         ),
       ),
       child: SfSlider(
-        value: _valuePrice,
+        value: valuePrice,
         min: 10,
         max: 500,
         showLabels: true,
@@ -179,44 +179,59 @@ class _FilterPageState extends State<FilterPage> {
         },
         onChanged: (dynamic newValues) {
           setState(() {
-            _valuePrice = newValues;
+            valuePrice = newValues;
           });
         },
       ),
     );
   }
 
-  sliderAssessment() {
-    return SfSliderTheme(
-      data: SfSliderThemeData(
-        thumbColor: MyColors.secundary,
-        activeTrackColor: MyColors.secundary,
-        thumbRadius: 10,
-        inactiveTrackColor: MyColors.secundaryLig,
-        activeLabelStyle:
-            const TextStyle(color: MyColors.textWhite, fontSize: 12),
-        inactiveLabelStyle: const TextStyle(
-          color: MyColors.textWhite,
-          fontSize: 12,
-        ),
-      ),
-      child: SfSlider(
-        value: _valueAssessment,
-        min: 0,
-        max: 10,
-        showLabels: true,
-        labelPlacement: LabelPlacement.onTicks,
-        interval: 2.5,
-        labelFormatterCallback: (dynamic actualValue, String formattedText) {
-          return ' $formattedText';
-        },
-        onChanged: (dynamic newValues) {
-          setState(() {
-            _valueAssessment = newValues;
-          });
-        },
-      ),
-    );
+  _ratingBarVote() {
+    return Container(
+        margin: const EdgeInsets.only(left: 40, top: 20),
+        child: RatingBar.builder(
+          initialRating: score,
+          itemCount: 5,
+          allowHalfRating: true,
+          direction: Axis.horizontal,
+          unratedColor: MyColors.textWhite,
+          itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+          itemBuilder: (context, index) {
+            switch (index) {
+              case 0:
+                return const Icon(
+                  Icons.sentiment_very_dissatisfied,
+                  color: Colors.red,
+                );
+              case 1:
+                return const Icon(
+                  Icons.sentiment_dissatisfied,
+                  color: Colors.redAccent,
+                );
+              case 2:
+                return const Icon(
+                  Icons.sentiment_neutral,
+                  color: Colors.amber,
+                );
+              case 3:
+                return const Icon(
+                  Icons.sentiment_satisfied,
+                  color: Colors.lightGreen,
+                );
+              case 4:
+                return const Icon(
+                  Icons.sentiment_very_satisfied,
+                  color: Colors.green,
+                );
+              default:
+                return const Center();
+            }
+          },
+          onRatingUpdate: (rating) {
+            score = rating;
+            setState(() {});
+          },
+        ));
   }
 
   Button _dateFilter(BuildContext context) {
@@ -245,6 +260,4 @@ class _FilterPageState extends State<FilterPage> {
               child: child!)),
     );
   }
-
-  _onPressed() {}
 }

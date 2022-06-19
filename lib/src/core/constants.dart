@@ -50,6 +50,7 @@ class Constants {
   static const String collectionHotel = 'hotel';
   static const String collectionOffer = 'offer';
   static const String collectionReview = 'review';
+  static const String collectionFavorite = 'favorite';
 
   //Login
   static const String textCuenta = "¿No tiene cuenta? ";
@@ -113,6 +114,7 @@ class Constants {
   static const String tooltipFilter = 'Filtrar';
   static const String tooltipOrderBy = 'Orden ';
   static const String tooltipSearch = 'Buscar ';
+  static const String tooltipFav = 'Favorito ';
 
   //order_by
   static const String orderPrice = 'Precio';
@@ -180,6 +182,7 @@ class Constants {
   static const String favIdHotel = 'idHotel';
   static const String favIdUser = 'idUser';
   static const String favLocation = 'location';
+  static const String favIsFavorite = 'isFav';
 
   //Details
   static const String detDescription = 'Descripción:';
@@ -189,4 +192,9 @@ class Constants {
 
   //Review
   static const String newReview = 'Añadir reseña: ';
+
+  //MenuItems
+  static const String menuLocation = 'Localización';
+  static const String menuHotel = 'Nombre hotel';
+  static const String menuStar = 'Estrellas hotel';
 }

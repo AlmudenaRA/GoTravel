@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         Constants.routesFavorite: (_) => const FavoritePage(),
         Constants.routesEditProfile: (_) => const EditProfilePage(),
         Constants.routesFilter: (_) => const FilterPage(),
-        Constants.routesRoom: (_) => const RoomsPage(),
+        // Constants.routesRoom: (_) => const RoomsPage(),
       },
 
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

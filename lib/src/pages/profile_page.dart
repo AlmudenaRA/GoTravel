@@ -75,11 +75,11 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () =>
                 Navigator.pushNamed(context, Constants.routesFavorite),
           ),
-          SeparatorProfile(
-              text: Constants.textPoint,
-              icon: Icons.app_shortcut,
-              size: 25.0,
-              onPressed: () => showDialogPoint(context)),
+          // SeparatorProfile(
+          //     text: Constants.textPoint,
+          //     icon: Icons.app_shortcut,
+          //     size: 25.0,
+          //     onPressed: () => showDialogPoint(context)),
           SeparatorProfile(
               text: Constants.textLogOut,
               icon: Icons.logout,

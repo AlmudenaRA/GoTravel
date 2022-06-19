@@ -15,6 +15,8 @@ class Constants {
   static const String textInfo = 'Información';
   static const String textFilter = 'Filtrar por...';
   static const String textOrder = 'Ordenar por...';
+  static const String textComment = 'Escriba un comentario...';
+  static const String textSearch = 'Buscar localidad';
 
   //Button
   static const String buttonLogin = 'INICIAR SESIÓN';
@@ -30,11 +32,7 @@ class Constants {
   static const String btnFilter = 'FILTRAR';
   static const String btnOffer = 'OFERTA';
   static const String btnOtherOffer = 'OTRAS OFERTAS';
-
-  //Login
-  static const String textCuenta = "¿No tiene cuenta? ";
-  static const String textOr = 'o';
-  static const String textSingIn = 'Inicie sesión con';
+  static const String btnReviewSend = 'AÑADIR NUEVA RESEÑA';
 
   //Routes
   static const String routesSplash = 'splash_screen';
@@ -46,12 +44,21 @@ class Constants {
   static const String routesEditProfile = 'edit_profile';
   static const String routesFilter = 'filter';
   static const String routesRoom = 'room';
+  static const String routesDetailHotel = 'detailHotel';
+
+  //Collection
+  static const String collectionUser = 'users';
+  static const String collectionHotel = 'hotel';
+  static const String collectionOffer = 'offer';
+  static const String collectionReview = 'review';
+
+  //Login
+  static const String textCuenta = "¿No tiene cuenta? ";
+  static const String textOr = 'o';
+  static const String textSingIn = 'Inicie sesión con';
 
   //Sing up
   static const String singAccount = "¿Ya tiene cuenta? ";
-
-  //Firebase
-  static const String userColl = 'users';
 
   //User
   static const String userId = 'id';
@@ -64,6 +71,7 @@ class Constants {
 
   //Error
   static const String strEmpty = 'Rellene el campo';
+  static const String strEmptys = 'Rellene los campos';
   static const String errorFormatEmail = 'El formato de email no es válido';
   static const String errorLenghtPass =
       'La contraseña debe tener al menos 8 caracteres';
@@ -75,6 +83,7 @@ class Constants {
   static const String someChange = 'Modifique algún campo';
   static const String recentLogin = 'Requiere inicio de sesión reciente';
   static const String emailInUse = 'Email ya en uso';
+  static const String search = 'No hay hoteles en esa localidad.';
 
   //Provider
   static const String provider = 'Provider';
@@ -82,9 +91,11 @@ class Constants {
   static const String provEmail = 'Email';
 
   //Loading
-  static const String loadSingUp = 'Registrando';
-  static const String loadLogin = 'Iniciando sesión';
-  static const String loadUpdate = 'Modificando usuario';
+  static const String load = 'Cargando..';
+  static const String loadSingUp = 'Registrando usuario, por favor espere';
+  static const String loadLogin = 'Iniciando sesión de forma segura';
+  static const String loadUpdate = 'Modificando usuario, por favor espere';
+  static const String loadReview = 'Añadiendo reseña, por favor espere';
 
   //BottomAppBar
   static const String bAppBarHome = 'Inicio';
@@ -102,6 +113,7 @@ class Constants {
   //tooltip
   static const String tooltipFilter = 'Filtrar';
   static const String tooltipOrderBy = 'Orden ';
+  static const String tooltipSearch = 'Buscar ';
 
   //order_by
   static const String orderPrice = 'Precio';
@@ -133,7 +145,8 @@ class Constants {
   static const String hotelPhoto = 'photo';
   static const String hotelService = 'service';
   static const String hotelReview = 'review';
-  static const String collectionHotel = 'hotel';
+  static const String hotelImageUnavailable =
+      'https://www.torrenuevacosta.com/images/no-imagen-109.jpg';
 
   //review
   static const String reviewId = 'idReview';
@@ -141,6 +154,7 @@ class Constants {
   static const String reviewIdUser = 'idUser';
   static const String reviewScore = 'score';
   static const String reviewComment = 'comment';
+  static const String reviewNot = 'No hay reseñas de otros usuarios.';
 
   //offer
   static const String offerId = 'idOffert';
@@ -154,10 +168,22 @@ class Constants {
   static const String offerPerson = 'person';
   static const String offerRoom = 'room';
   static const String offerListHotel = 'listHotel';
+  static const String offUrlPage = 'urlPage';
+  static const String offTxtWeb = 'por noche en ';
+  static const String offTxtPriceNight = ' noches por  ';
 
   //favorite
   static const String favId = 'idFav';
   static const String favIdHotel = 'idHotel';
   static const String favIdUser = 'idUser';
   static const String favLocation = 'location';
+
+  //Details
+  static const String detDescription = 'Descripción:';
+  static const String detReview = 'Reseñas de otros usuarios:';
+  static const String description =
+      'El Hostal Castilla está situado entre las estaciones de metro de Alonso Martínez y Colón y ofrece habitaciones con calefacción, balcón y vistas a la ciudad. El establecimiento se encuentra a 15 minutos a pie del famoso parque del Retiro. Las habitaciones presentan una decoración sencilla y cuentan con camas individuales, armario y TV. Algunas habitaciones tienen baño privado con bañera. Se proporcionan toallas y ropa de cama. El Hostal Castilla alberga una cocina compartida donde se sirve el desayuno todas las mañanas. Incluye microondas, cafetera y nevera. La animada Puerta del Sol está bien comunicada con el centro de Madrid y se encuentra a 10 minutos en transporte público. El Museo de Arte Thyssen-Bornemisza está a 1 km y la moderna Gran Vía, a 10 minutos a pie. Hay conexión Wi-Fi gratuita en las zonas comunes.';
+
+  //Review
+  static const String newReview = 'Añadir reseña: ';
 }

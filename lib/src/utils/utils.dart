@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
-import 'package:gotravel/src/theme/my_colors.dart';
+import 'package:gotravel/src/widget/load_circular.dart';
 
 //comprueba si el formato del email es válido
 bool validEmail(String email) {
@@ -48,20 +48,18 @@ void showAlertDialog(BuildContext context, String title, String content,
 
 void hideLoadingIndicator(context) => Navigator.pop(context);
 
-void showLoadingIndicator(context, String? text) {
+void showLoadingIndicator(context, String textTitle, String textSubtitle) {
   showDialog(
     context: context,
-    barrierDismissible: false, //impide que el usuario cierre pulsando fuera
+    barrierDismissible: true,
     builder: (BuildContext context) {
       return WillPopScope(
-        onWillPop: () async =>
-            false, // impide que el usuario cierre cuando pulse atrás
+        onWillPop: () async => false,
         child: AlertDialog(
-          content: loadingIndicator(
-              indicatorType: const CircularProgressIndicator(),
-              colors: [MyColors.secundaryLig],
-              strokeWidth: 2,
-              text: Text(text!)),
+          content: LoadCircular(
+            textTitle: textTitle,
+            textSubtitle: textSubtitle,
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),

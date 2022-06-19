@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
@@ -15,14 +13,14 @@ class ListHotel extends StatefulWidget {
 }
 
 class ListHotelState extends State<ListHotel> {
-  final CollectionReference collectRef =
+  final CollectionReference hotelRef =
       FirebaseFirestore.instance.collection(Constants.collectionHotel);
   HotelModel hotel = HotelModel();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: collectRef.get(),
+      future: hotelRef.get(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (!snapshot.hasData) {
           return const Center(
@@ -30,15 +28,15 @@ class ListHotelState extends State<ListHotel> {
             color: MyColors.secundary,
           ));
         }
-
         return ListView.builder(
+          padding: const EdgeInsets.all(20),
           shrinkWrap: true,
-          itemCount: 3, //TODO snapshot.data.docs.length,
+          itemCount: snapshot.data.docs.length,
           itemBuilder: (BuildContext context, index) {
-            //TODO HotelModel hotel = HotelModel.fromJson(snapshot.data.docs[index].data());
-            return const CardHotel(
-                //hotelModel: hotel,
-                );
+            hotel = HotelModel.fromJson(snapshot.data.docs[index].data());
+            return CardHotel(
+              hotelModel: hotel,
+            );
           },
         );
       },

@@ -79,7 +79,7 @@ class _FilterPageState extends State<FilterPage> {
                 color: MyColors.textWhite,
                 fontSize: 15,
               ),
-              _sliderAssessment(),
+              sliderAssessment(),
               _space(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +186,7 @@ class _FilterPageState extends State<FilterPage> {
     );
   }
 
-  _sliderAssessment() {
+  sliderAssessment() {
     return SfSliderTheme(
       data: SfSliderThemeData(
         thumbColor: MyColors.secundary,

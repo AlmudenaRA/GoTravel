@@ -4,6 +4,7 @@ class TextData extends StatelessWidget {
   final Color color;
   final String text;
   final EdgeInsets? padding;
+  final EdgeInsets? margin;
   final FontWeight? fontWeight;
   final double fontSize;
   const TextData({
@@ -11,6 +12,7 @@ class TextData extends StatelessWidget {
     required this.color,
     required this.text,
     this.padding,
+    this.margin,
     this.fontWeight,
     required this.fontSize,
   }) : super(key: key);
@@ -19,8 +21,10 @@ class TextData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: padding,
+      margin: margin,
       child: Text(
         text,
+        textAlign: TextAlign.justify,
         style: TextStyle(
           fontSize: fontSize,
           fontWeight: fontWeight,

@@ -1,187 +1,206 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/models/hotel_model.dart';
+import 'package:gotravel/src/models/offer_model.dart';
+import 'package:gotravel/src/pages/details_hotel_page.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/widget/button_text.dart';
 import 'package:gotravel/src/widget/button_text_icon.dart';
 import 'package:gotravel/src/widget/text_data.dart';
 import 'package:gotravel/src/core/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:favorite_button/favorite_button.dart';
 
 class CardHotel extends StatelessWidget {
-  //final HotelModel hotelModel;
-  // final OfferModel? offerModel;
+  final HotelModel hotelModel;
 
   const CardHotel({
     Key? key,
-    // required this.hotelModel, this.offerModel
+    required this.hotelModel,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {},
-        child: Card(
-          margin: const EdgeInsets.all(20),
-          elevation: 50,
-          shadowColor: MyColors.pDark,
-          color: MyColors.pLight,
-          child: Column(
-            children: [
-              Container(
-                height: 144,
-                width: 400,
-                color: MyColors.pDark,
-                child: const Icon(
-                  Icons.abc,
-                  color: MyColors.textWhite,
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailHotel(hotelModel: hotelModel)));
+        },
+        child: Stack(children: [
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            decoration: const BoxDecoration(
+                color: MyColors.pLight,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            child: Column(
+              children: [
+                Container(
+                  width: 320,
+                  decoration: const BoxDecoration(
+                    color: MyColors.pLight,
+                    shape: BoxShape.circle,
+                    //borderRadius: BorderRadius.all(Radius.circular(10)
+                  ),
+                  child: hotelModel.photo![0].isEmpty
+                      ? Image.network(Constants.hotelImageUnavailable)
+                      : Image.network(hotelModel.photo![0].toString()),
                 ),
-                //TODO child: Image.asset(
-                //   hotelModel.photo![0],
-                //   height: 144,
-                //   width: 400,
-                // ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const TextData(
-                          padding: EdgeInsets.only(left: 20),
-                          text:
-                              "Nombre del hotel", //TODO hotelModel.hotelName!,
-                          color: MyColors.textWhite,
-                          fontSize: 18,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Padding(padding: EdgeInsets.only(left: 20)),
-                            _checkStar(),
-                            const TextData(
-                              padding: EdgeInsets.only(left: 20),
-                              text: "Madrid", //TODO hotelModel.location!,
-                              color: MyColors.textWhite,
-                              fontSize: 13,
-                            ),
-                          ],
-                        )
-                      ]),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite,
-                        color: MyColors.textWhite,
-                      ))
-                ],
-              ),
-              Container(
-                width: 300,
-                height: 70,
-                color: MyColors.pLightSure,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextData(
+                            padding: const EdgeInsets.only(top: 10),
+                            text: hotelModel.hotelName!,
+                            color: MyColors.textWhite,
+                            fontSize: 18,
+                          ),
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
-                              TextData(
-                                padding: EdgeInsets.only(top: 10, left: 10),
-                                text: "150 €",
-                                color: MyColors.secundaryDark,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                            children: [
+                              // const Padding(padding: EdgeInsets.only(left: 10)),
+                              RatingBar.builder(
+                                initialRating: hotelModel.star!.toDouble(),
+                                minRating: 0,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                tapOnlyMode: true,
+                                itemSize: 10,
+                                itemPadding:
+                                    const EdgeInsets.symmetric(horizontal: 1.5),
+                                itemBuilder: (context, _) => const Icon(
+                                  Icons.star,
+                                  color: MyColors.textWhite,
+                                ),
+                                onRatingUpdate: (rating) {
+                                  //print(rating);
+                                },
                               ),
-                            ]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
                               TextData(
-                                padding: EdgeInsets.only(left: 10),
-                                text: "por noche en...",
-                                color: MyColors.textButton,
-                                fontSize: 10,
+                                padding: const EdgeInsets.only(left: 20),
+                                text: hotelModel.location!,
+                                color: MyColors.textWhite,
+                                fontSize: 13,
                               ),
-                              TextData(
-                                text: "web",
-                                color: MyColors.textButton,
-                                fontSize: 10,
-                              )
-                            ]),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            TextData(
-                              padding: EdgeInsets.only(left: 10),
-                              text: "x ",
-                              color: MyColors.textButton,
-                              fontSize: 10,
-                            ),
-                            TextData(
-                              text: "noches por ",
-                              color: MyColors.textButton,
-                              fontSize: 10,
-                            ),
-                            TextData(
-                              text: "900 €",
-                              color: MyColors.secundaryDark,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    const ButtonTextIcon(
-                      text: Constants.btnOffer,
-                      color: MyColors.textButton,
-                      navigation: Constants.routesProfile,
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          )
+                        ]),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FavoriteButton(
+                            iconSize: 40,
+                            iconDisabledColor: MyColors.textWhite,
+                            iconColor: MyColors.secundary,
+                            valueChanged: (_) {},
+                          ),
+                        ]),
+                  ],
+                ),
+                _offer(hotelModel),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ButtonText(
+                      text: Constants.btnOtherOffer,
+                      color: MyColors.pLightSure,
+                      onPressed: () {},
                     ),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
-                  ButtonText(
-                    text: Constants.btnOtherOffer,
-                    color: MyColors.pLightSure,
-                    navigation: Constants.routesProfile,
-                  ),
-                ],
-              )
+              ],
+            ),
+          ),
+        ]));
+  }
+
+  _onPressed(OfferModel offer) async {
+    final Uri _url = Uri.parse(offer.website!);
+    if (!await launchUrl(_url)) throw 'Could not launch $_url';
+  }
+
+  _offer(HotelModel hotel) {
+    final CollectionReference offerRef =
+        FirebaseFirestore.instance.collection(Constants.collectionOffer);
+    OfferModel offer = OfferModel();
+    return FutureBuilder(
+      future: offerRef
+          .where("idHotel", isEqualTo: hotel.idHotel)
+          .orderBy("priceNight")
+          .limit(1)
+          .get(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(
+              child: CircularProgressIndicator(
+            color: MyColors.secundary,
+          ));
+        }
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: snapshot.data.docs.length,
+          itemBuilder: (BuildContext context, index) {
+            offer = OfferModel.fromJson(snapshot.data.docs[index].data());
+            return _bestOffer(offer);
+          },
+        );
+      },
+    );
+  }
+
+  _bestOffer(OfferModel offer) {
+    return Container(
+      width: 300,
+      height: 50,
+      color: MyColors.pLightSure,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                TextData(
+                  padding: const EdgeInsets.only(top: 10, left: 10),
+                  text: '${offer.priceNight!.floor()} €',
+                  color: MyColors.secundaryDark,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ]),
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                const TextData(
+                  padding: EdgeInsets.only(left: 10),
+                  text: Constants.offTxtWeb,
+                  color: Colors.black,
+                  fontSize: 10,
+                ),
+                TextData(
+                  text: offer.urlPage!,
+                  color: Colors.black,
+                  fontSize: 10,
+                )
+              ]),
             ],
           ),
-        ));
-  }
-
-  _checkStar() {
-    // if (hotelModel.star! >= 1) {
-    //   for (int i = 1; i < hotelModel.star!; i++) {
-    //     return const Icon(
-    //       Icons.star,
-    //       color: MyColors.textWhite,
-    //       size: 15,
-    //     );
-    //   }
-    //
-    for (int i = 1; i < 3; i++) {
-      return const Icon(
-        Icons.star,
-        color: MyColors.textWhite,
-        size: 15,
-      );
-    }
-  }
-
-  _iconStar() {
-    const Icon(
-      Icons.star,
-      color: MyColors.textWhite,
-      size: 15,
+          ButtonTextIcon(
+            text: Constants.btnOffer,
+            color: MyColors.textButton,
+            icon: Icons.chevron_right,
+            onPressed: () => _onPressed(offer),
+          ),
+        ],
+      ),
     );
   }
 }

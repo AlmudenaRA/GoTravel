@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/data/share_prefs.dart';
+import 'package:gotravel/src/pages/details_hotel_page.dart';
 import 'package:gotravel/src/pages/favorite_page.dart';
 import 'package:gotravel/src/pages/filter_page.dart';
 import 'package:gotravel/src/pages/home_page.dart';
@@ -30,7 +31,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     //Forzar la pantalla en vertical

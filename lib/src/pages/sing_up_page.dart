@@ -10,7 +10,6 @@ import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:gotravel/src/data/auth_service.dart' as auth_service;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:gotravel/src/utils/utils.dart' as utils;
 
 class SingUpPage extends StatefulWidget {
   const SingUpPage({Key? key}) : super(key: key);

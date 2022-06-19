@@ -4,7 +4,6 @@ import 'package:gotravel/src/models/hotel_model.dart';
 class OfferModel {
   String? idOffer;
   String? idHotel;
-  String? destiny;
   String? website;
   String? urlPage;
   double? priceNight;
@@ -18,7 +17,6 @@ class OfferModel {
   OfferModel(
       {this.idOffer,
       this.idHotel,
-      this.destiny,
       this.website,
       this.urlPage,
       this.priceNight,
@@ -32,7 +30,6 @@ class OfferModel {
   OfferModel.fromJson(Map<String, dynamic> json)
       : idOffer = json[Constants.offerId],
         idHotel = json[Constants.offerIdHotel],
-        destiny = json[Constants.offerDestiny],
         website = json[Constants.offerWebsite],
         urlPage = json[Constants.offUrlPage],
         priceNight = double.tryParse(json[Constants.offerPriceNight]);
@@ -46,7 +43,6 @@ class OfferModel {
   Map<String, dynamic> toJson() => {
         Constants.offerId: idOffer,
         Constants.offerIdHotel: idHotel,
-        Constants.offerDestiny: destiny,
         Constants.offerWebsite: website,
         Constants.offUrlPage: urlPage,
         Constants.offerPriceNight: priceNight,

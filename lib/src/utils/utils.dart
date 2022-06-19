@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:gotravel/src/core/constants.dart';
-import 'package:gotravel/src/theme/my_colors.dart';
+import 'package:gotravel/src/widget/load_circular.dart';
 
 //comprueba si el formato del email es válido
 bool validEmail(String email) {
@@ -56,10 +56,10 @@ void showLoadingIndicator(context, String textTitle, String textSubtitle) {
       return WillPopScope(
         onWillPop: () async => false,
         child: AlertDialog(
-          // content: LoadCircular(
-          //   textTitle: textTitle,
-          //   textSubtitle: textSubtitle,
-          // ),
+          content: LoadCircular(
+            textTitle: textTitle,
+            textSubtitle: textSubtitle,
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),

@@ -15,6 +15,8 @@ class Constants {
   static const String textInfo = 'Información';
   static const String textFilter = 'Filtrar por...';
   static const String textOrder = 'Ordenar por...';
+  static const String textComment = 'Escriba un comentario...';
+  static const String textSearch = 'Buscar localidad';
 
   //Button
   static const String buttonLogin = 'INICIAR SESIÓN';
@@ -30,6 +32,7 @@ class Constants {
   static const String btnFilter = 'FILTRAR';
   static const String btnOffer = 'OFERTA';
   static const String btnOtherOffer = 'OTRAS OFERTAS';
+  static const String btnReviewSend = 'AÑADIR NUEVA RESEÑA';
 
   //Routes
   static const String routesSplash = 'splash_screen';
@@ -68,6 +71,7 @@ class Constants {
 
   //Error
   static const String strEmpty = 'Rellene el campo';
+  static const String strEmptys = 'Rellene los campos';
   static const String errorFormatEmail = 'El formato de email no es válido';
   static const String errorLenghtPass =
       'La contraseña debe tener al menos 8 caracteres';
@@ -79,6 +83,7 @@ class Constants {
   static const String someChange = 'Modifique algún campo';
   static const String recentLogin = 'Requiere inicio de sesión reciente';
   static const String emailInUse = 'Email ya en uso';
+  static const String search = 'No hay hoteles en esa localidad.';
 
   //Provider
   static const String provider = 'Provider';
@@ -90,6 +95,7 @@ class Constants {
   static const String loadSingUp = 'Registrando usuario, por favor espere';
   static const String loadLogin = 'Iniciando sesión de forma segura';
   static const String loadUpdate = 'Modificando usuario, por favor espere';
+  static const String loadReview = 'Añadiendo reseña, por favor espere';
 
   //BottomAppBar
   static const String bAppBarHome = 'Inicio';
@@ -148,6 +154,7 @@ class Constants {
   static const String reviewIdUser = 'idUser';
   static const String reviewScore = 'score';
   static const String reviewComment = 'comment';
+  static const String reviewNot = 'No hay reseñas de otros usuarios.';
 
   //offer
   static const String offerId = 'idOffert';
@@ -173,9 +180,10 @@ class Constants {
 
   //Details
   static const String detDescription = 'Descripción:';
-  static const String detReview = 'Reseñas:';
+  static const String detReview = 'Reseñas de otros usuarios:';
   static const String description =
       'El Hostal Castilla está situado entre las estaciones de metro de Alonso Martínez y Colón y ofrece habitaciones con calefacción, balcón y vistas a la ciudad. El establecimiento se encuentra a 15 minutos a pie del famoso parque del Retiro. Las habitaciones presentan una decoración sencilla y cuentan con camas individuales, armario y TV. Algunas habitaciones tienen baño privado con bañera. Se proporcionan toallas y ropa de cama. El Hostal Castilla alberga una cocina compartida donde se sirve el desayuno todas las mañanas. Incluye microondas, cafetera y nevera. La animada Puerta del Sol está bien comunicada con el centro de Madrid y se encuentra a 10 minutos en transporte público. El Museo de Arte Thyssen-Bornemisza está a 1 km y la moderna Gran Vía, a 10 minutos a pie. Hay conexión Wi-Fi gratuita en las zonas comunes.';
-  static const String urlHotel =
-      'https://www.agoda.com/es-es/hostal-castilla/hotel/all/madrid-es.html?finalPriceView=2&isShowMobileAppPrice=false&cid=1763310&numberOfBedrooms=&familyMode=false&adults=2&children=0&rooms=1&maxRooms=0&checkIn=2022-06-21&isCalendarCallout=false&childAges=&numberOfGuest=0&missingChildAges=false&travellerType=-1&showReviewSubmissionEntry=false&currencyCode=EUR&isFreeOccSearch=false&tag=a50a5925-ed0f-4f5c-bd67-afc4a3f7b11b&flexibleDateSearchCriteria=[object%20Object]&isCityHaveAsq=false&los=1&searchrequestid=facae72b-92f7-47e4-a584-07dd55ce0889';
+
+  //Review
+  static const String newReview = 'Añadir reseña: ';
 }

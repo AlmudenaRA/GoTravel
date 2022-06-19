@@ -4,24 +4,27 @@ import 'package:gotravel/src/core/constants.dart';
 import 'package:gotravel/src/models/review_model.dart';
 import 'package:gotravel/src/theme/my_colors.dart';
 import 'package:gotravel/src/widget/review.dart';
+import 'package:gotravel/src/models/hotel_model.dart';
 
 class ListReview extends StatefulWidget {
-  const ListReview({Key? key}) : super(key: key);
+  final HotelModel hotel;
+  const ListReview({Key? key, required this.hotel}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => ListReviewState();
+  State<StatefulWidget> createState() => ListReviewState(hotel);
 }
 
 class ListReviewState extends State<ListReview> {
-  final CollectionReference collectRefReview =
-      FirebaseFirestore.instance.collection(Constants.collectionHotel);
-
+  HotelModel hotel;
   ReviewModel review = ReviewModel();
+  final CollectionReference reviewRef =
+      FirebaseFirestore.instance.collection(Constants.collectionReview);
+  ListReviewState(this.hotel);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: collectRefReview.get(),
+    return StreamBuilder(
+      stream: reviewRef.where("idHotel", isEqualTo: hotel.idHotel).snapshots(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (!snapshot.hasData) {
           return const Center(
@@ -33,12 +36,12 @@ class ListReviewState extends State<ListReview> {
         return ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: 3, //TODO snapshot.data.docs.length,
+          itemCount: snapshot.data.docs.length,
           itemBuilder: (BuildContext context, index) {
-            //TODO review = ReviewModel.fromJson(snapshot.data.docs[index].data());
-            return const Review(
-                //hotelModel: hotel,
-                );
+            review = ReviewModel.fromJson(snapshot.data.docs[index].data());
+            return Review(
+              review: review,
+            );
           },
         );
       },

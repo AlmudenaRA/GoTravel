@@ -215,6 +215,6 @@ class _SingUpPageState extends State<SingUpPage> {
       await imagenStorage();
       await auth_service.asignImageUserAuthWithEmailAndPassword(users);
     }
-    auth_service.createUserFireWithEmailAndPassword(context, users);
+    await auth_service.createUserFireWithEmailAndPassword(context, users);
   }
 }

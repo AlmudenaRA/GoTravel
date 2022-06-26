@@ -33,52 +33,52 @@ class _FilterPageState extends State<FilterPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const TextData(
-                text: Constants.filterDate,
-                color: MyColors.textButton,
-                fontSize: 15,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              _dateFilter(context),
-              _space(),
-              const TextData(
-                text: Constants.filterRoom,
-                color: MyColors.textButton,
-                fontSize: 15,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Button(
-                  width: 0.9,
-                  heigth: 50,
-                  color: MyColors.secundary,
-                  text: Constants.selectRoom,
-                  onPressed: () =>
-                      Navigator.pushNamed(context, Constants.routesRoom)),
-              _space(),
-              const TextData(
-                text: Constants.priceNight,
-                color: MyColors.textButton,
-                fontSize: 15,
-              ),
-              _sliderPrice(),
-              _space(),
+              // const TextData(
+              //   text: Constants.filterDate,
+              //   color: MyColors.textButton,
+              //   fontSize: 15,
+              // ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // _dateFilter(context),
+              // _space(),
+              // const TextData(
+              //   text: Constants.filterRoom,
+              //   color: MyColors.textButton,
+              //   fontSize: 15,
+              // ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // Button(
+              //     width: 0.9,
+              //     heigth: 50,
+              //     color: MyColors.secundary,
+              //     text: Constants.selectRoom,
+              //     onPressed: () =>
+              //         Navigator.pushNamed(context, Constants.routesRoom)),
+              // _space(),
+              // const TextData(
+              //   text: Constants.priceNight,
+              //   color: MyColors.textButton,
+              //   fontSize: 15,
+              // ),
+              // _sliderPrice(),
+              // _space(),
               const TextData(
                 text: Constants.hotelCateg,
                 color: MyColors.textButton,
                 fontSize: 15,
               ),
               _starHotel(),
-              _space(),
-              const TextData(
-                text: Constants.assessment,
-                color: MyColors.textButton,
-                fontSize: 15,
-              ),
-              _ratingBarVote(),
+              // _space(),
+              // const TextData(
+              //   text: Constants.assessment,
+              //   color: MyColors.textButton,
+              //   fontSize: 15,
+              // ),
+              // _ratingBarVote(),
               _space(),
               Container(
                   margin: const EdgeInsets.symmetric(horizontal: 3),

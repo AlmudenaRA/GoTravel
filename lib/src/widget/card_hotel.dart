@@ -64,13 +64,14 @@ class CardHotel extends StatelessWidget {
                           : Image.network(hotelModel.photo![0].toString()),
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            //crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               TextData(
-                                padding: const EdgeInsets.only(top: 10),
+                                padding:
+                                    const EdgeInsets.only(top: 10, left: 15),
                                 text: hotelModel.hotelName!,
                                 color: MyColors.textWhite,
                                 fontSize: 18,
@@ -94,10 +95,10 @@ class CardHotel extends StatelessWidget {
                                 height: 10,
                               )
                             ]),
-                        ButtonFavorite(
-                            isFavorite: isFav,
-                            color: MyColors.textWhite,
-                            onPressed: () => _valueFavorite(isFav, _auth, fav)),
+                        // ButtonFavorite(
+                        //     isFavorite: isFav,
+                        //     color: MyColors.textWhite,
+                        //     onPressed: () => _valueFavorite(isFav, _auth, fav)),
                       ],
                     ),
                     _offer(hotelModel),

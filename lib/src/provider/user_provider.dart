@@ -21,8 +21,8 @@ Future<void> addUserAuth(FirebaseAuth auth) async {
               Constants.userUserName: auth.currentUser!.displayName,
               Constants.userEmail: auth.currentUser!.email,
               Constants.userAvatar: auth.currentUser?.photoURL,
-              Constants.userPoint: int,
-              Constants.userFav: [],
+              Constants.userPoint: null,
+              Constants.userFav: null,
             }),
           }
       });

@@ -20,10 +20,10 @@ signInWithGoogle(context) async {
       idToken: googleAuth?.idToken,
     );
     await _firebaseAuth.signInWithCredential(credential).then((value) {
-      SharePrefs.instance.provider = Constants.provGoogle;
       user_provider.addUserAuth(_firebaseAuth);
       utils.hideLoadingIndicator(context);
-      Navigator.of(context).pushReplacementNamed(Constants.routesHome);
+      SharePrefs.instance.provider = Constants.provGoogle;
+      Navigator.pushNamed(context, Constants.routesHome);
     });
   } catch (e) {
     debugPrint(e.toString());
@@ -53,7 +53,7 @@ Future<UserModel> createUserAuthWithEmailAndPassword(
         _firebaseAuth.currentUser!.uid; //se añade el id del auth al modelo
     return user;
   } on FirebaseAuthException catch (e) {
-    if (e.code == 'auth/email-already-exists') {
+    if (e.code == 'email-already-in-use') {
       _errorAlert(context, Constants.emailRegistered);
     } else {
       _errorAlert(context, e.message);
@@ -71,10 +71,23 @@ Future<void> asignImageUserAuthWithEmailAndPassword(UserModel user) async {
 }
 
 createUserFireWithEmailAndPassword(context, UserModel user) async {
-  await user_provider.addUser(user); //se añade a firestore
-  utils.hideLoadingIndicator(context);
-  utils.showAlertDialog(context, Constants.textRegistration,
-      Constants.textRegistered, () => Navigator.pop(context));
+  try {
+    await user_provider.addUser(user); //se añade a firestore
+    utils.hideLoadingIndicator(context);
+    utils.showAlertDialog(context, Constants.textRegistration,
+        Constants.textRegistered, () => Navigator.pop(context));
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'email-already-in-use') {
+      _errorAlert(context, Constants.emailRegistered);
+    } else {
+      _errorAlert(context, e.message);
+    }
+    return user;
+  } catch (e) {
+    utils.hideLoadingIndicator(context);
+    _errorAlert(context, e);
+    return user;
+  }
 }
 
 //autentica un usuario con email y contraseña

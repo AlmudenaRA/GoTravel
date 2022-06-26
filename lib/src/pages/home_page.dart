@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   final List _widgetOptions = [
     const MainPage(),
-    const FavoritePage(),
+    //const FavoritePage(),
     const ProfilePage(),
   ];
 
@@ -37,10 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.home),
             label: Constants.bAppBarHome,
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: Constants.bAppBarFav,
-          ),
+          // const BottomNavigationBarItem(
+          //   icon: Icon(Icons.favorite),
+          //   label: Constants.bAppBarFav,
+          // ),
           BottomNavigationBarItem(
               icon: CircleAvatar(
                 backgroundColor: MyColors.background,

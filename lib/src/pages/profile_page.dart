@@ -69,12 +69,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   onPressed: () =>
                       Navigator.pushNamed(context, Constants.routesEditProfile),
                 ),
-          SeparatorProfile(
-            text: Constants.textFavorite,
-            icon: Icons.favorite,
-            onPressed: () =>
-                Navigator.pushNamed(context, Constants.routesFavorite),
-          ),
+          // SeparatorProfile(
+          //   text: Constants.textFavorite,
+          //   icon: Icons.favorite,
+          //   onPressed: () =>
+          //       Navigator.pushNamed(context, Constants.routesFavorite),
+          // ),
           // SeparatorProfile(
           //     text: Constants.textPoint,
           //     icon: Icons.app_shortcut,

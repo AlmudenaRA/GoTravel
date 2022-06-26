@@ -100,7 +100,7 @@ class _DetailHotelState extends State<DetailHotel> {
                 enlargeCenterPage: true,
                 aspectRatio: 2.0,
                 viewportFraction: 0.75,
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
+                enlargeStrategy: CenterPageEnlargeStrategy.scale,
                 onPageChanged: (index, reason) {
                   setState(() {
                     _current = index;
@@ -436,7 +436,10 @@ class _DetailHotelState extends State<DetailHotel> {
       review.idReview = uuid.v4();
       review.idHotel = hotelModel.idHotel;
       review.idUser = _auth.currentUser!.uid;
-      if (review.score != null && review.comment != null) {
+      if (review.score != null &&
+          review.comment != null &&
+          review.score! > 0 &&
+          review.comment!.isNotEmpty) {
         addReview(review);
       } else {
         showAlertDialog(context, Constants.error, Constants.strEmptys);
